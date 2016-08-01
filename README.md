@@ -23,13 +23,30 @@ npm install indexr --save
 
 # Usage
 
-Node API
-```bash
+Node API signature
 
+```javascript
+indexr(folder, outputFile, options)
+```
+
+Node API example
+
+```javascript
+indexr('./app', 'server-index.js', {filter: ['./*/server.js'])
+```
+
+CLI Signature
 
 ```bash
 indexr <folder> [--filename <filename>] [--glob <glob>]
 ```
+CLI Example
+
+```bash
+indexr ./app --filename server-index.js --glob ./*/server.js
+```
+
+
 
 
 
