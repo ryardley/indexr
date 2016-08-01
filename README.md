@@ -39,8 +39,7 @@ indexr(folder, [outputFile], options)
 | option      | notes                     |
 | ------------- | --------------------------------------------- |
 | filter        | Either an array of globs or a filter function that accepts a file path and returns true if the file path should be used as a module. |
-| template      | Either a string or a function. If a string valid values are 'es5' or 'esnext'.
-If a template function the function should takes an array of relative module paths and output the module file as a string |
+| template      | Either a string or a function. If a string valid values are 'es5' or 'esnext'. If a template function the function should takes an array of relative module paths and output the module file as a string |
 | dontWrite  | Return the output as a string instead of writing to a file |
 
 ## Node API example
