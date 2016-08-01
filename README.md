@@ -1,2 +1,2 @@
 # indexr
-A function for dynamically Indexing ES6 modules.
+A package for dynamically Indexing ES6 modules.
