@@ -26,20 +26,22 @@ npm install indexr --save
 Node API signature
 
 ```javascript
-indexr(folder, outputFile, options)
+indexr(folder, [outputFile], options)
 ```
 
 | argument      | notes                     |
 | ------------- | ------------- |
 | folder        | The folder to analyze |
-| outputFile    | The name and path to the outputFile relative to the folder.  |
+| outputFile (opt)    | The name and path to the outputFile relative to the folder.  |
 | options       | An object containing configuration options  |
 
 ### Available options
 | option      | notes                     |
 | ------------- | --------------------------------------------- |
 | filter        | Either an array of globs or a filter function that accepts a file path and returns true if the file path should be used as a module. |
-
+| template      | Either a string or a function. If a string valid values are 'es5' or 'esnext'.
+If a template function the function should takes an array of relative module paths and output the module file as a string |
+| dontWrite  | Return the output as a string instead of writing to a file |
 
 ## Node API example
 
