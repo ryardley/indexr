@@ -35,6 +35,10 @@ indexr(folder, outputFile, options)
 | outputFile    | The name and path to the outputFile relative to the folder.  |
 | options       | An object containing configuration options  |
 
+### Available options
+| option      | notes                     |
+| ------------- | --------------------------------------------- |
+| filter        | Either an array of globs or a filter function that accepts a file path and returns true if the file path should be used as a module. |
 
 
 ## Node API example
