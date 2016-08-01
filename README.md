@@ -29,9 +29,19 @@ Node API signature
 indexr(folder, outputFile, options)
 ```
 
-Node API example
+| argument      | notes                     |
+| ------------- | ------------- |
+| folder        | The folder to analyze |
+| outputFile    | The name and path to the outputFile relative to the folder.  |
+| options       | An object containing configuration options  |
+
+
+
+## Node API example
 
 ```javascript
+import indexr from 'indexr';
+
 indexr('./app', 'server-index.js', {filter: ['./*/server.js'])
 ```
 
