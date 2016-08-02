@@ -54,7 +54,6 @@ This will only include modules which contain `server.js` files.
 ```javascript
 indexr('/path/to/folder', 'index.js', {
   include: '*/server.js',
-  exclude: '*/index.js',
   directImport: true,
   exts: ['js']
 });
