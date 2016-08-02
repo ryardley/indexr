@@ -11,11 +11,19 @@
     "url": "https://github.com/ryardley/indexr.git"
   },
   "keywords": [
-    "Modules",
-    "Modular",
-    "Javascript",
-    "Module",
-    "Indexes"
+    "dynamic modules",
+    "dynamic include",
+    "autoloading",
+    "module",
+    "module autoloading",
+    "modules",
+    "es6",
+    "es6-modules",
+    "modular javascript",
+    "javascript",
+    "indexes",
+    "dynamic index",
+    "indexes for javascript modules"
   ],
   "author": "Rudi Yardley <contact@rudiyardley.com> (http://rudiyardley.com)",
   "license": "MIT",
