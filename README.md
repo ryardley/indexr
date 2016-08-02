@@ -1,4 +1,4 @@
-# indexr
+# Indexr
 A tool for dynamically creating indexes modules for your ES6 submodules.
 
 ES6 modules are great but they have the problem that they have the requirement they must be able to statically resolve their dependencies. What if you have dynamic modules that should be autoloaded?
@@ -10,10 +10,10 @@ Indexr is designed to solve this problem by automatically generating index root 
 Assuming we have a folder tree like this:
 
 ```bash
-/path/to/folder
-         ├── bar
-         ├── baz
-         └── foo
+/folder
+ ├── bar
+ ├── baz
+ └── foo
 ```
 
 If we run this in a node file somewhere:
@@ -54,7 +54,6 @@ This will only include modules which contain `server.js` files.
 ```javascript
 indexr('/path/to/folder', 'index.js', {
   include: '*/server.js',
-  exclude: '*/index.js',
   directImport: true,
   exts: ['js']
 });
