@@ -159,4 +159,4 @@ indexr('./app', 'server-index.js', {filter: ['./*/server.js']})
 # Roadmap
 
 * CLI
-* Gulp Plugin
+* [Gulp Plugin](http://github.com/ryardley/gulp-indexr)
