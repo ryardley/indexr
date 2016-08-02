@@ -5,9 +5,24 @@ This was written as part of an upcoming blog post around good software architect
 
 ES6 modules are great but they have the problem that they have the requirement they must be able to statically resolve their dependencies. What if you have dynamic modules that should be autoloaded?
 
-The answer has been to manually maintain a root module that exports your submodules as an array. This leads to errors as you forget to update your root module and effectively have undry code.
+```javascript
+import routes from './routes';
+
+const app = getTheExpressApp();
+
+// Autoload all routes from within the routes folder
+routes.map((route) => {
+  app.use(route);
+});
+
+//... do other things
+```
+
+The answer has been to manually maintain a root module that exports your submodules as an array. This leads to errors if you forget to update your root module and maintainence more difficult.
 
 Indexr is designed to solve this problem by automatically generating index root modules from submodules.
+
+Right now it is designed to be used as a standalone module but on the roadmap are the gulp module as well as a cli.
 
 Assuming we have a folder tree like this:
 
@@ -18,7 +33,7 @@ Assuming we have a folder tree like this:
  └── foo
 ```
 
-If we run this in a node file somewhere:
+We run this in a node file somewhere:
 
 ```javascript
 import indexr from 'indexr';
