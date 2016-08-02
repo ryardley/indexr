@@ -76,7 +76,8 @@ export default [foo, bar];
 npm install indexr -g
 ```
  -->
-Install locally and use the node API <!--or use indexr in npm scripts.-->
+Install locally and use the node API
+<!--or use indexr in npm scripts.-->
 
 ```bash
 npm install indexr --save
