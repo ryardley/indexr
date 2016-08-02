@@ -1,6 +1,8 @@
 # Indexr
 A tool for dynamically creating indexes modules for your ES6 submodules.
 
+This was written as part of an upcoming blog post around good software architecture for modern Node web applications.
+
 ES6 modules are great but they have the problem that they have the requirement they must be able to statically resolve their dependencies. What if you have dynamic modules that should be autoloaded?
 
 The answer has been to manually maintain a root module that exports your submodules as an array. This leads to errors as you forget to update your root module and effectively have undry code.
@@ -127,19 +129,8 @@ import indexr from 'indexr';
 
 indexr('./app', 'server-index.js', {filter: ['./*/server.js']})
 ```
-<!--
-CLI Signature
 
-```bash
-indexr <folder> [--filename <filename>] [--glob <glob>]
-```
-CLI Example
+# TODO
 
-```bash
-indexr ./app --filename server-index.js --glob ./*/server.js
-```
-
-...this is a work in progress appologies more docs coming soon
-
-
- -->
+* CLI
+* Gulp Plugin
