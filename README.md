@@ -1,5 +1,5 @@
 # Indexr
-A tool for dynamically creating indexes modules for your ES6 submodules.
+A tool for dynamically creating index modules for your ES6 submodules.
 
 This was written as part of an upcoming blog post around good software architecture for modern Node web applications.
 
