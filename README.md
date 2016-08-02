@@ -156,7 +156,7 @@ import indexr from 'indexr';
 indexr('./app', 'server-index.js', {filter: ['./*/server.js']})
 ```
 
-# TODO
+# Roadmap
 
 * CLI
 * Gulp Plugin
