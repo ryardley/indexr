@@ -10,10 +10,10 @@ Indexr is designed to solve this problem by automatically generating index root 
 Assuming we have a folder tree like this:
 
 ```bash
-/path/to/folder
-         ├── bar
-         ├── baz
-         └── foo
+/folder
+ ├── bar
+ ├── baz
+ └── foo
 ```
 
 If we run this in a node file somewhere:
