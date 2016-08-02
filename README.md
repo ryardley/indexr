@@ -55,12 +55,12 @@ This will only include modules which contain `server.js` files.
 indexr('/path/to/folder', 'index.js', {
   include: '*/server.js',
   exclude: '*/index.js',
-  importGlob: true,
-  defaultExts: ['js']
+  directImport: true,
+  exts: ['js']
 });
 ```
 
-By using the `importGlob` flag it will include the searched files in the import statements:
+By using the `directImport` flag it will include the searched files in the import statements:
 
 ```javascript
 import foo from './foo/server';
@@ -107,7 +107,6 @@ indexr(folder, [outputFile,] options)
 | option      | notes                     |
 | ------------- | --------------------------------------------- |
 | include       | Glob or an array of globs. |
-| exclude       | Glob or an array of globs. |
 | es5           | Boolean flag to use es5 commonjs style modules over es6. This is overridden if a template function is provided |
 | template      | Either a string or a function. If a string valid values are 'es5' or 'esnext'. If a template function the function should takes an array of relative module paths and output the module file as a string |
 
