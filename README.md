@@ -1,16 +1,40 @@
 # Indexr
-A tool for dynamically creating index modules for your ES6 submodules.
+Dynamic index modules for your ES6 submodules. 
 
-This was written as part of an upcoming blog post around good software architecture for modern Node web applications.
+## Background
 
-ES6 modules are great but they have the problem that they have the requirement they must be able to statically resolve their dependencies. What if you have dynamic modules that should be autoloaded?
+ES6 modules are great but what if you have dynamic modules that should be autoloaded?
+
+You can try something like this in your modules folder:
 
 ```javascript
-import routes from './routes';
+// ./routes/index.js
+export default fs
+  .readdirSync(moduleFolder)
+  .filter((listing) => {
+    // is it a folder with an index.js? Just asking this question in node requires try catch!!
+    try {
+      return fs.statSync(p).isDirectory() 
+        && fs.statSync(path.resolve(p, 'index.js')).isFile();
+    } catch (e) {
+      return false;
+    }
+  })
+  .map((listing) => {
+    // sneekily require the module breaking ES6 module loading in the process...
+    return require(path.resolve(moduleFolder, listing))
+  });
+```
 
-const app = getTheExpressApp();
+This works but ES6 imports are declarative and meant for static analysis. The function `require` is actually from the commonjs API and is not part of the ES6 modules spec. Simply put ES6 modules cannot be dynamic but that doesn't stop us needing to load things simply and dynamically, does it? Assuming we have a folder full of routes modules we want to be able to do the following:
 
-// Autoload all routes from within the routes folder
+```javascript
+import routes from './routes'; // folder full of 20-30 routes
+import express from 'express';
+
+const app = express();
+
+// Apply all routes from within the routes folder
 routes.map((route) => {
   app.use(route);
 });
@@ -18,11 +42,56 @@ routes.map((route) => {
 //... do other things
 ```
 
-The answer has been to manually maintain a root module that exports your submodules as an array. This leads to errors if you forget to update your root module and maintainence more difficult.
+The answer has been to manually maintain a root module that exports your submodules as an array. 
 
-Indexr is designed to solve this problem by automatically generating index root modules from submodules.
+```javascript
+// ./routes/index.js
+import api from './api';
+import products from './products';
+import errors from './errors';
+// ... import more stuff
 
-Right now it is designed to be used as a standalone module but on the roadmap are the gulp module as well as a cli.
+export default [
+  api,
+  products,
+  errors,
+  // ... export more stuff
+];
+```
+
+This is great because it is still statically analysable and we can import our modules as an array by simply using:
+
+```javascript
+import routes from './routes';
+```
+
+However this leads to errors if you forget to update your root module and maintainence more difficult especially if you have many modules to import.
+
+Indexr is designed to solve this problem by automatically generating index root modules from submodules that live in your source path.
+
+# Installation
+
+<!-- Install globally and refer to indexr from the bash prompt.
+
+```bash
+npm install indexr -g
+```
+ -->
+Install locally and use the node API
+<!--or use indexr in npm scripts.-->
+
+```bash
+npm install indexr --save
+```
+<!--
+If #2, add `./node_modules/.bin` to your path (recommended). This method means you have access to the binaries for all local npm modules.
+
+```bash
+# add node modules .bin folder for local executables
+PATH=$PATH:./node_modules/.bin
+``` -->
+
+# Usage
 
 Assuming we have a folder tree like this:
 
@@ -94,30 +163,6 @@ import foo from './foo/server';
 import bar from './bar/server';
 export default [foo, bar];
 ```
-
-# Installation
-
-<!-- Install globally and refer to indexr from the bash prompt.
-
-```bash
-npm install indexr -g
-```
- -->
-Install locally and use the node API
-<!--or use indexr in npm scripts.-->
-
-```bash
-npm install indexr --save
-```
-<!--
-If #2, add `./node_modules/.bin` to your path (recommended). This method means you have access to the binaries for all local npm modules.
-
-```bash
-# add node modules .bin folder for local executables
-PATH=$PATH:./node_modules/.bin
-``` -->
-
-# Usage
 
 Node API signature
 
