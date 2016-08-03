@@ -242,7 +242,6 @@ indexr ./app --out server.js --watch ./app/* --include */server.js
 
 # Roadmap
 
-* Run on multiple folders
 * File Watching
 * Index Sorting
 * [Gulp Plugin](http://github.com/ryardley/gulp-indexr)
