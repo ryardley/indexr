@@ -2,9 +2,9 @@
   "name": "indexr",
   "version": "0.0.6",
   "description": "A tool for dynamically creating indexes modules for your ES6 submodules.",
-  "main": "dist/index.js",
+  "main": "./dist/index.js",
   "bin": {
-    "indexr":"./bin/index.js"
+    "indexr": "./dist/bin.js"
   },
   "scripts": {
     "test": "mocha --compilers js:babel-register test"
@@ -52,10 +52,12 @@
     "eslint-plugin-react": "^5.2.2",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
+    "gulp-watch": "^4.3.9",
     "mocha": "^3.0.0"
   },
   "dependencies": {
     "camelcase": "^3.0.0",
+    "commander": "^2.9.0",
     "walk-sync": "^0.3.0"
   }
 }
