@@ -2,6 +2,8 @@ import path from 'path';
 import assert from 'assert';
 import indexr from '../lib';
 import fs from 'fs';
+import { handleDeprecation } from '../lib/parseArgs';
+import sinon from 'sinon';
 
 const inputFolder = path.resolve(__dirname, './fixtures/input');
 const fractalFolder = path.resolve(__dirname, './fixtures/fractal');
@@ -17,6 +19,45 @@ const tryer = (func, defval = false) => {
 
 const fileExists = (fileName) =>
   tryer(() => fs.lstatSync(fileName).isFile());
+
+describe('handleDeprecation', () => {
+  const deprecated = {
+    include: 'submodules',
+  };
+
+  const warnFunc = sinon.spy(); // TODO: use a spy
+
+  it('should handle a deprecated object', () => {
+    const actual = handleDeprecation(deprecated, {
+      include: 'foo',
+      warnFunc,
+    });
+    assert(warnFunc.called);
+    const expected = {
+      submodules: 'foo',
+      warnFunc,
+    };
+
+    assert.deepEqual(actual, expected, 'handleDeprecation');
+  });
+
+  it('should not allow a deprecated prop through', () => {
+    const actual = handleDeprecation(deprecated, {
+      include: 'foo',
+      other: 'prop',
+      submodules: 'bar',
+      warnFunc,
+    });
+    assert(warnFunc.called);
+    const expected = {
+      other: 'prop',
+      submodules: 'bar',
+      warnFunc,
+    };
+
+    assert.deepEqual(actual, expected, 'handleDeprecation');
+  });
+});
 
 describe('indexr', () => {
   afterEach(() => {
