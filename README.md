@@ -175,16 +175,22 @@ For help with the commandline program you can try the help flag:
 ```bash
 $ indexr --help
 
-Usage: indexr <inputfolder> [options]
+  Usage: indexr <rootFolder> [options]
 
-Options:
+  Options:
 
-  -h, --help            output usage information
-  -V, --version         output the version number
-  -o, --out [filename]  output filename for the file.
-  -i, --include [glob]  a glob that will determine which folders are included as imports.
-  -5, --es5             Use ES5 template for index output.
-  -d, --direct-import   include the searched files in the import statements.
+    -h, --help               output usage information
+    -V, --version            output the version number
+    -o, --out [filename]     The name of the output file. This file will be added to each module folder.
+    -m, --modules [glob]     A glob pathed to the rootFolder that will determine which folders are module folders. If this is ommitted only the root folder is a module folder.
+    -s, --submodules [glob]  A glob pathed to each module folder that will determine which submodules are imported to the index.
+    -5, --es5                Use ES5 template for index output.
+    -d, --direct-import      Include the searched files in the import statements.
+    -i, --include [glob]     Deprecated in favour of --submodules
+
+  Examples:
+
+    $ indexr ./app --out server.js --modules **/modules/ --submodules */server.js
 ```
 
 The following example will look in the `./app` folder for modules and identify them with the glob '*/server.js' and then write a file to `./app/server.js`.
