@@ -11,11 +11,12 @@ const collect = (item, memo) => {
 
 program
   .version(`Indexr v${pkg.version}`)
-  .usage('<inputfolder> [options]')
-  .option('-o, --out [filename]',
-    'output filename for the file. ')
-  .option('-i, --include [glob]',
-    'a glob that will determine which folders are included as imports.', collect, [])
+  .usage('<rootFolder> [options]')
+  .option('-o, --out [filename]', 'The name of the output file. This file will be added to each module folder.')
+  .option('-m, --modules [glob]',
+    'a glob pathed to the rootFolder that will determine which folders are module folders. If this is ommitted only the root folder is a module folder.')
+  .option('-s, --submodules [glob]',
+    'a glob pathed to each module folder that will determine which submodules are imported to the index.', collect, [])
   .option('-5, --es5', 'Use ES5 template for index output.')
   .option('-d, --direct-import',
     'include the searched files in the import statements.')

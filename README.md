@@ -146,7 +146,7 @@ We can also filter which modules and entry files we want by setting some options
 
 ```javascript
 indexr('/path/to/folder', 'index.js', {
-  include: '*/server.js',
+  submodules: '*/server.js',
 });
 ```
 
@@ -154,7 +154,7 @@ This will only include modules which contain `server.js` files.
 
 ```javascript
 indexr('/path/to/folder', 'index.js', {
-  include: '*/server.js',
+  submodules: '*/server.js',
   directImport: true,
   exts: ['js']
 });
@@ -190,19 +190,23 @@ Options:
 The following example will look in the `./app` folder for modules and identify them with the glob '*/server.js' and then write a file to `./app/server.js`.
 
 ```bash
-$ indexr ./app --out server.js --include */server.js
+$ indexr ./app --out server.js --submodules */server.js
+```
+
+```bash
+$ indexr ./app --out server.js --modules **/modules/ --submodules */server.js
 ```
 
 ### Node API signature
 
 ```javascript
-indexr(folder, [outputFile,] options)
+indexr(folder, [outputFilename,] options)
 ```
 
 | argument            | notes                     |
 | ------------------- | ------------- |
 | folder              | The folder to analyze |
-| outputFile (opt)    | The name and path to the outputFile relative to the folder. If not included indexr will simply return a string with the file index instead of writing it to a file. |
+| outputFilename      | The name and path to the outputFile relative to the module folder. |
 | options             | An object containing configuration options  |
 
 ### Available options
