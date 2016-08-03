@@ -71,27 +71,31 @@ Indexr is designed to solve this problem by automatically generating index root 
 
 # Installation
 
-<!-- Install globally and refer to indexr from the bash prompt.
+Install globally and use indexr in the bash prompt.
 
 ```bash
 npm install indexr -g
 ```
- -->
-Install locally and use the node API
-<!--or use indexr in npm scripts.-->
+
+Install locally and use the node API or use indexr in npm scripts (recommended).
 
 ```bash
 npm install indexr --save
 ```
-<!--
-If #2, add `./node_modules/.bin` to your path (recommended). This method means you have access to the binaries for all local npm modules.
+
+## Tip
+Try adding `./node_modules/.bin` to your path for your terminal. That way you can get access to local cli programs as you enter your npm projects.
 
 ```bash
-# add node modules .bin folder for local executables
+# ~/.bash_profile
+...
 PATH=$PATH:./node_modules/.bin
-``` -->
+...
+```
 
 # Usage
+
+You can use indexr as either a command-line program or a node API.
 
 Assuming we have a folder tree like this:
 
@@ -164,7 +168,32 @@ import bar from './bar/server';
 export default [foo, bar];
 ```
 
-Node API signature
+### CLI
+
+For help with the commandline program you can try the help flag:
+
+```bash
+$ indexr --help
+
+Usage: indexr <inputfolder> [options]
+
+Options:
+
+  -h, --help            output usage information
+  -V, --version         output the version number
+  -o, --out [filename]  output filename for the file.
+  -i, --include [glob]  a glob that will determine which folders are included as imports.
+  -5, --es5             a glob that will determine which folders are included as imports.
+  -d, --direct-import   include the searched files in the import statements.
+```
+
+The following example will look in the `./app` folder for modules and identify them with the glob '*/server.js' and then write a file to `./app/server.js`.
+
+```bash
+$ indexr ./app --out server.js --include */server.js
+```
+
+### Node API signature
 
 ```javascript
 indexr(folder, [outputFile,] options)
@@ -193,25 +222,12 @@ indexr('/app', 'server.js', {
 });
 ```
 
-## Node API example
-
-```javascript
-import indexr from 'indexr';
-
-indexr('./app', 'server-index.js', {include: ['./*/server.js']})
-```
-
-## CLI example
-
-```bash
-indexr ./app --out server.js --include */server.js
-```
-
+<!--
 Run a watch on a folder
 
 ```bash
 indexr ./app --out server.js --watch ./app/* --include */server.js
-```
+``` -->
 
 
 # Roadmap

@@ -9,14 +9,11 @@ const collect = (item, memo) => {
   return memo;
 };
 
-const bool = (value) => !!value;
-const string = (value) => `${value}`;
-
 program
   .version(`Indexr v${pkg.version}`)
   .usage('<inputfolder> [options]')
   .option('-o, --out [filename]',
-    'output filename for the file. ', string, undefined)
+    'output filename for the file. ')
   .option('-i, --include [glob]',
     'a glob that will determine which folders are included as imports.', collect, [])
   .option('-5, --es5',
@@ -39,12 +36,6 @@ if (program.es5 !== undefined)
 
 if (program.directImport !== undefined)
   options.directImport = program.directImport;
-
-console.log({
-  inputFolder,
-  outputFilename,
-  options,
-});
 
 const output = indexr(inputFolder, outputFilename, options);
 
