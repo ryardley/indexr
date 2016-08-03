@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "mocha --compilers js:babel-register test",
-    "publish-patch": "npm version patch && git push"
+    "publish-patch": "npm version patch && git push && npm publish"
   },
   "repository": {
     "type": "git",
