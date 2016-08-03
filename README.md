@@ -12,7 +12,7 @@ You can try something like this in your modules folder:
 export default fs
   .readdirSync(moduleFolder)
   .filter((listing) => {
-    // is it a folder? Just asking this question requires try catch!!
+    // is it a folder with an index.js? Just asking this question requires try catch!!
     try {
       return fs.statSync(p).isDirectory() 
         && fs.statSync(path.resolve(p, 'index.js')).isFile();
