@@ -5,8 +5,9 @@ ES6 modules are great but they have the problem that they have the requirement t
 
 ```javascript
 import routes from './routes';
+import express from 'express';
 
-const app = getTheExpressApp();
+const app = express();
 
 // Autoload all routes from within the routes folder
 routes.map((route) => {
