@@ -16,8 +16,7 @@ program
     'output filename for the file. ')
   .option('-i, --include [glob]',
     'a glob that will determine which folders are included as imports.', collect, [])
-  .option('-5, --es5',
-    'a glob that will determine which folders are included as imports.')
+  .option('-5, --es5', 'Use ES5 template for index output.')
   .option('-d, --direct-import',
     'include the searched files in the import statements.')
   .parse(process.argv);

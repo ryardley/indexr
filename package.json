@@ -7,7 +7,8 @@
     "indexr": "./dist/bin.js"
   },
   "scripts": {
-    "test": "mocha --compilers js:babel-register test"
+    "test": "mocha --compilers js:babel-register test",
+    "publish-patch": "npm version patch && git push"
   },
   "repository": {
     "type": "git",
