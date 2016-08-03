@@ -7,8 +7,10 @@
     "indexr": "./dist/bin.js"
   },
   "scripts": {
-    "test": "mocha --compilers js:babel-register test",
-    "publish-patch": "npm version patch && git push && npm publish"
+    "compile": "gulp",
+    "publish-patch": "npm version patch && git push && npm publish",
+    "test": "concurrently --raw 'npm run compile' 'npm run test-once'",
+    "test-once": "mocha --watch --compilers js:babel-register test --ignore **/fixtures"
   },
   "repository": {
     "type": "git",
@@ -45,6 +47,7 @@
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-preset-es2015": "^6.9.0",
     "babel-register": "^6.11.6",
+    "concurrently": "^2.2.0",
     "eslint": "^2.13.1",
     "eslint-config-airbnb": "^9.0.1",
     "eslint-plugin-import": "^1.11.0",

@@ -3,8 +3,8 @@ import assert from 'assert';
 import indexr from '../lib';
 import fs from 'fs';
 
-const inputFolder = path.resolve(__dirname, '../fixtures/input');
-const outputFolder = path.resolve(__dirname, '../fixtures/output');
+const inputFolder = path.resolve(__dirname, './fixtures/input');
+const outputFolder = path.resolve(__dirname, './fixtures/output');
 
 const tryer = (func, defval = false) => {
   try {
