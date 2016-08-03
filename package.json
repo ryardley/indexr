@@ -9,6 +9,7 @@
   "scripts": {
     "compile": "gulp",
     "publish-patch": "npm version patch && git push --tags && npm publish",
+    "publish-minor": "npm version minor && git push --tags && npm publish",
     "test": "concurrently --raw 'npm run compile' 'npm run test-once'",
     "test-once": "mocha --watch --compilers js:babel-register test --ignore **/fixtures"
   },
