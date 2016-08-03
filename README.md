@@ -49,11 +49,13 @@ The answer has been to manually maintain a root module that exports your submodu
 import api from './api';
 import products from './products';
 import errors from './errors';
+// ... import more stuff
 
 export default [
   api,
   products,
   errors,
+  // ... export more stuff
 ];
 ```
 
