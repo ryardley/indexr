@@ -40,6 +40,7 @@
     "dist"
   ],
   "homepage": "https://github.com/ryardley/indexr",
+  "git-tag-version": true,
   "devDependencies": {
     "babel-core": "^6.11.4",
     "babel-eslint": "^6.1.2",
