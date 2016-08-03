@@ -5,9 +5,10 @@ Dynamic index modules for your ES6 submodules.
 
 ES6 modules are great but what if you have dynamic modules that should be autoloaded?
 
-You can try something like this in your index.js file for your modules folder:
+You can try something like this in your modules folder:
 
 ```javascript
+// ./routes/index.js
 export default fs
   .readdirSync(moduleFolder)
   .filter((listing) => {
@@ -22,20 +23,18 @@ export default fs
   .map((listing) => {
     // sneekily require the module breaking ES6 module loading in the process...
     return require(path.resolve(moduleFolder, listing))
-  })
+  });
 ```
 
-This works but require is not part of the ES6 modules spec. ES6 imports are declarative and meant for static analysis. They cannot be dynamic.
-
-But that doesn't stop us needing to load things simply and dynamically does it? Assuming we have a folder full of routes modules we want to be able to do the following:
+This works but ES6 imports are declarative and meant for static analysis. The function `require` is actually from the commonjs API and is not part of the ES6 modules spec. Simply put ES6 modules cannot be dynamic but that doesn't stop us needing to load things simply and dynamically, does it? Assuming we have a folder full of routes modules we want to be able to do the following:
 
 ```javascript
-import routes from './routes';
+import routes from './routes'; // folder full of 20-30 routes
 import express from 'express';
 
 const app = express();
 
-// Autoload all routes from within the routes folder
+// Apply all routes from within the routes folder
 routes.map((route) => {
   app.use(route);
 });
@@ -66,7 +65,7 @@ import routes from './routes';
 
 However this leads to errors if you forget to update your root module and maintainence more difficult especially if you have many modules to import.
 
-Indexr is designed to solve this problem by automatically generating index root modules from submodules.
+Indexr is designed to solve this problem by automatically generating index root modules from submodules that live in your source path.
 
 # Installation
 
