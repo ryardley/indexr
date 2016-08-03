@@ -3,7 +3,7 @@ Dynamic index modules for your ES6 submodules.
 
 ## Background
 
-ES6 modules are great but they have the problem that they have the requirement they must be able to statically resolve their dependencies. What if you have dynamic modules that should be autoloaded?
+ES6 modules are great but what if you have dynamic modules that should be autoloaded?
 
 You can try something like this in your index.js file for your modules folder:
 
