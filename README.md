@@ -232,5 +232,5 @@ indexr ./app --out server.js --watch ./app/* --include */server.js
 
 # Roadmap
 
-* CLI
+* File Watching
 * [Gulp Plugin](http://github.com/ryardley/gulp-indexr)
