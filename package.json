@@ -7,9 +7,10 @@
     "indexr": "./dist/bin.js"
   },
   "scripts": {
-    "compile": "gulp",
-    "publish-patch": "npm version patch && git push --tags && npm publish",
-    "publish-minor": "npm version minor && git push --tags && npm publish",
+    "compile": "gulp compile",
+    "dev": "gulp watch",
+    "publish-patch": "npm run compile && npm version patch && git push --tags && npm publish",
+    "publish-minor": "npm run compile && npm version minor && git push --tags && npm publish",
     "test": "concurrently --raw 'npm run compile' 'npm run test-once'",
     "test-once": "mocha --watch --compilers js:babel-register test --ignore **/fixtures"
   },
@@ -47,6 +48,7 @@
     "babel-eslint": "^6.1.2",
     "babel-loader": "^6.2.4",
     "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-transform-object-assign": "^6.8.0",
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-stage-0": "^6.5.0",
     "babel-register": "^6.11.6",
