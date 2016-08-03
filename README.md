@@ -1,5 +1,5 @@
 # Indexr
-Dynamic index modules for your ES6 submodules. 
+Dynamic index modules for your ES6 submodules.
 
 ## Background
 
@@ -14,7 +14,7 @@ export default fs
   .filter((listing) => {
     // is it a folder with an index.js? Just asking this question in node requires try catch!!
     try {
-      return fs.statSync(p).isDirectory() 
+      return fs.statSync(p).isDirectory()
         && fs.statSync(path.resolve(p, 'index.js')).isFile();
     } catch (e) {
       return false;
@@ -42,7 +42,7 @@ routes.map((route) => {
 //... do other things
 ```
 
-The answer has been to manually maintain a root module that exports your submodules as an array. 
+The answer has been to manually maintain a root module that exports your submodules as an array.
 
 ```javascript
 // ./routes/index.js
@@ -204,8 +204,15 @@ indexr('./app', 'server-index.js', {include: ['./*/server.js']})
 ## CLI example
 
 ```javascript
-indexr ./app --out server.js --include ./*/server.js
+indexr ./app --out server.js --include */server.js
 ```
+
+Run a watch on a folder
+
+```javascript
+indexr ./app --out server.js --watch ./app/* --include */server.js
+```
+
 
 # Roadmap
 
