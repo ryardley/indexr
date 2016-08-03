@@ -1,6 +1,6 @@
 {
   "name": "indexr",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Dynamic index modules for your ES6 submodules.",
   "main": "./dist/index.js",
   "bin": {
