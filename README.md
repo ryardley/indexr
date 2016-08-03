@@ -203,13 +203,13 @@ indexr('./app', 'server-index.js', {include: ['./*/server.js']})
 
 ## CLI example
 
-```javascript
+```bash
 indexr ./app --out server.js --include */server.js
 ```
 
 Run a watch on a folder
 
-```javascript
+```bash
 indexr ./app --out server.js --watch ./app/* --include */server.js
 ```
 
