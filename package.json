@@ -12,7 +12,8 @@
     "publish-patch": "npm run compile && npm version patch && git push --tags && npm publish",
     "publish-minor": "npm run compile && npm version minor && git push --tags && npm publish",
     "test": "concurrently --raw 'npm run compile' 'npm run test-once'",
-    "test-once": "mocha --watch --compilers js:babel-register test --ignore **/fixtures"
+    "test-once": "mocha --compilers js:babel-register test --ignore **/fixtures",
+    "test-watch": "mocha --watch --compilers js:babel-register test --ignore **/fixtures"
   },
   "repository": {
     "type": "git",

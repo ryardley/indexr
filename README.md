@@ -1,3 +1,5 @@
+<img src="https://travis-ci.org/ryardley/indexr.svg?branch=master" />
+
 # Indexr
 Dynamic index modules for your Node or client packaged ES6 submodules.
 
@@ -239,9 +241,14 @@ Run a watch on a folder
 indexr ./app --out server.js --watch ./app/* --include */server.js
 ``` -->
 
+# Contributing
+
+Found a bug? [Submit an issue!](https://github.com/ryardley/indexr/issues) or [Submit a pull request!](https://github.com/ryardley/indexr/pulls)
 
 # Roadmap
 
-* File Watching
-* Index Sorting
-* [Gulp Plugin](http://github.com/ryardley/gulp-indexr)
+[Submit a feature request!](https://github.com/ryardley/indexr/issues)
+
+- [x] File Watching
+- [ ] Index Sorting
+- [ ] [Gulp Plugin](http://github.com/ryardley/gulp-indexr)
