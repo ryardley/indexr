@@ -1,7 +1,5 @@
 # Indexr
-A tool for dynamically creating index modules for your ES6 submodules.
-
-This was written as part of an upcoming blog post around good software architecture for modern Node web applications.
+Dynamic index modules for your ES6 submodules. 
 
 ES6 modules are great but they have the problem that they have the requirement they must be able to statically resolve their dependencies. What if you have dynamic modules that should be autoloaded?
 
