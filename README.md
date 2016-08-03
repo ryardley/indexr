@@ -1,5 +1,5 @@
 # Indexr
-Dynamic index modules for your ES6 submodules.
+Dynamic index modules for your Node or client packaged ES6 submodules.
 
 ## Background
 
