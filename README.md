@@ -185,14 +185,17 @@ $ indexr --help
     -V, --version            output the version number
     -o, --out [filename]     The name of the output file. This file will be added to each module folder.
     -m, --modules [glob]     A glob pathed to the rootFolder that will determine which folders are module folders. If this is ommitted only the root folder is a module folder.
+    -w, --watch [glob]       A glob pathed to the rootFolder that will determine which files to watch when in watch mode.
     -s, --submodules [glob]  A glob pathed to each module folder that will determine which submodules are imported to the index.
     -5, --es5                Use ES5 template for index output.
     -d, --direct-import      Include the searched files in the import statements.
     -i, --include [glob]     Deprecated in favour of --submodules
 
-  Examples:
+ Examples:
 
-    $ indexr ./app --out 'server.js' --modules '**/modules/' --submodules '*/server.js'
+  $ indexr . --out index.r.js --modules '**/modules/' --submodules '*/index.js'
+  $ indexr . --watch --es5
+
 ```
 
 #### NOTE: All commandline globs must be enclosed in quotes!!
