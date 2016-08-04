@@ -195,6 +195,8 @@ $ indexr --help
     $ indexr ./app --out 'server.js' --modules '**/modules/' --submodules '*/server.js'
 ```
 
+#### NOTE: All commandline globs must be enclosed in quotes!!
+
 The following example will look in the `./app` folder for modules and identify them with the glob '*/server.js' and then write a file to `./app/server.js`.
 
 ```bash
