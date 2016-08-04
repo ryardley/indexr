@@ -102,7 +102,7 @@ You can use indexr as either a command-line program or a node API.
 Assuming we have a folder tree like this:
 
 ```bash
-/folder
+./folder
  ├── bar
  ├── baz
  └── foo
@@ -110,9 +110,8 @@ Assuming we have a folder tree like this:
 
 We run this in a node file somewhere:
 
-```javascript
-import indexr from 'indexr';
-indexr('/path/to/folder', 'index.js');
+```
+indexr ./folder
 ```
 
 It will create a file called `/path/to/folder/index.js` that contains the following:
