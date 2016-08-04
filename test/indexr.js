@@ -48,7 +48,7 @@ describe('handleDeprecation', () => {
     assert.deepEqual(actual, expected, 'handleDeprecation');
   });
 
-  it('should not allow a deprecated prop through', () => {
+  it('should not allow a deprecated prop through but instead copy its value to the new prop', () => {
     const actual = handleDeprecation(deprecated, {
       include: 'foo',
       other: 'prop',
@@ -58,11 +58,12 @@ describe('handleDeprecation', () => {
 
     const expected = {
       other: 'prop',
-      submodules: 'bar',
+      submodules: 'foo',
     };
     assert(warnFunc.called);
     assert.deepEqual(actual, expected, 'handleDeprecation');
   });
+
 });
 
 describe('indexr', () => {
@@ -98,9 +99,11 @@ describe('indexr', () => {
 
     it('should write to a file if the output filename is provided', () => {
       const warnFunc = sinon.spy();
+
       indexr(inputFolder, 'server.js', { warnFunc });
       const expected = fs.readFileSync(path.resolve(outputFolder, 'expected-es6.js'), 'utf-8');
       const actual = fs.readFileSync(path.resolve(inputFolder, 'server.js'), 'utf-8');
+
       assert.equal(expected, actual, 'Function did not return expected output.');
       assert(warnFunc.called);
     });
