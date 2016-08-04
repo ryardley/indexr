@@ -6,6 +6,11 @@ import { handleDeprecation } from '../lib/parseArgs';
 import sinon from 'sinon';
 import parseCLIInput from '../lib/parseCLIInput';
 import { Command } from 'commander';
+import { setLogLevel } from '../lib/logger';
+import defaultOptions from '../lib/defaultOptions';
+
+// don't log stuff we dont care
+setLogLevel('none');
 
 const inputFolder = path.resolve(__dirname, './fixtures/input');
 const fractalFolder = path.resolve(__dirname, './fixtures/fractal');
@@ -70,11 +75,12 @@ describe('indexr', () => {
   afterEach(() => {
     const deletePaths = [
       path.resolve(inputFolder, 'server.js'),
-      path.resolve(inputFolder, 'index.js'),
-      path.resolve(fractalFolder, 'modules', 'index.js'),
-      path.resolve(fractalFolder, 'modules', 'module-1', 'modules', 'index.js'),
+      path.resolve(inputFolder, defaultOptions.outputFilename),
+      path.resolve(fractalFolder, 'modules', defaultOptions.outputFilename),
+      path.resolve(fractalFolder, 'modules', 'foo.js'),
+      path.resolve(fractalFolder, 'modules', 'module-1', 'modules', 'foo.js'),
       path.resolve(fractalFolder, 'modules', 'module-1', 'modules', 'nested-2',
-        'modules', 'index.js'),
+        'modules', 'foo.js'),
     ];
 
     deletePaths.forEach((filePath) => {
@@ -86,13 +92,15 @@ describe('indexr', () => {
 
   describe('node API', () => {
     it('should return an es6 file with correct exports', () => {
-      const actual = indexr(inputFolder);
+      indexr(inputFolder, { modules: undefined });
+      const actual = fs.readFileSync(path.resolve(inputFolder, defaultOptions.outputFilename), 'utf-8');
       const expected = fs.readFileSync(path.resolve(outputFolder, 'expected-es6.js'), 'utf-8');
       assert.equal(expected, actual, 'Function did not return expected output.');
     });
 
     it('should return an es5 file with correct exports', () => {
-      const actual = indexr(inputFolder, { es5: true });
+      indexr(inputFolder, { es5: true, modules: undefined });
+      const actual = fs.readFileSync(path.resolve(inputFolder, defaultOptions.outputFilename), 'utf-8');
       const expected = fs.readFileSync(path.resolve(outputFolder, 'expected-es5.js'), 'utf-8');
       assert.equal(expected, actual, 'Function did not return expected output.');
     });
@@ -100,7 +108,7 @@ describe('indexr', () => {
     it('should write to a file if the output filename is provided', () => {
       const warnFunc = sinon.spy();
 
-      indexr(inputFolder, 'server.js', { warnFunc });
+      indexr(inputFolder, 'server.js', { warnFunc, modules: undefined });
       const expected = fs.readFileSync(path.resolve(outputFolder, 'expected-es6.js'), 'utf-8');
       const actual = fs.readFileSync(path.resolve(inputFolder, 'server.js'), 'utf-8');
 
@@ -110,32 +118,37 @@ describe('indexr', () => {
 
 
     it('should accept outputFilename as an option', () => {
-      indexr(inputFolder, { outputFilename: 'server.js' });
+      indexr(inputFolder, { outputFilename: 'server.js', modules: undefined });
       const expected = fs.readFileSync(path.resolve(outputFolder, 'expected-es6.js'), 'utf-8');
       const actual = fs.readFileSync(path.resolve(inputFolder, 'server.js'), 'utf-8');
       assert.equal(expected, actual, 'Function did not return expected output.');
     });
 
     it('should capture submodules filters', () => {
-      const actual = indexr(inputFolder, { submodules: '*/server.js' });
+      indexr(inputFolder, { submodules: '*/server.js', modules: undefined });
+      const actual = fs.readFileSync(path.resolve(inputFolder, defaultOptions.outputFilename));
       const expected = fs.readFileSync(path.resolve(outputFolder,
         'expected-es6-server.js'), 'utf-8');
       assert.equal(expected, actual, 'Function did not return expected output.');
     });
 
     it('should directImport the files if asked ', () => {
-      const actual = indexr(inputFolder, { submodules: '*/server.js', directImport: true });
+      indexr(inputFolder, { submodules: '*/server.js', directImport: true, modules: undefined });
+      const actual = fs.readFileSync(path.resolve(inputFolder, defaultOptions.outputFilename));
+
       const expected = fs.readFileSync(path.resolve(outputFolder,
         'expected-es6-server-direct.js'), 'utf-8');
       assert.equal(expected, actual, 'Function did not return expected output.');
     });
 
     it('should remove exts provided ', () => {
-      const actual = indexr(inputFolder, {
+      indexr(inputFolder, {
         submodules: '*/server.js',
         directImport: true,
+        modules: undefined,
         exts: ['js'],
       });
+      const actual = fs.readFileSync(path.resolve(inputFolder, defaultOptions.outputFilename));
       const expected = fs.readFileSync(path.resolve(outputFolder,
         'expected-es6-server-direct-exts.js'), 'utf-8');
       assert.equal(expected, actual, 'Function did not return expected output.');
@@ -143,7 +156,7 @@ describe('indexr', () => {
 
     it('should accept globs as folders and run indexr on each returned result', () => {
       const warnFunc = sinon.spy();
-      indexr(fractalFolder, 'index.js', {
+      indexr(fractalFolder, 'foo.js', {
         modules: '**/modules/',
         submodules: '*/index.js',
         warnFunc,
@@ -156,11 +169,11 @@ describe('indexr', () => {
       ];
 
       const actual = [
-        fs.readFileSync(path.resolve(fractalFolder, 'modules', 'index.js'), 'utf-8'),
+        fs.readFileSync(path.resolve(fractalFolder, 'modules', 'foo.js'), 'utf-8'),
         fs.readFileSync(path.resolve(fractalFolder, 'modules', 'module-1', 'modules',
-          'index.js'), 'utf-8'),
+          'foo.js'), 'utf-8'),
         fs.readFileSync(path.resolve(fractalFolder, 'modules', 'module-1', 'modules',
-          'nested-2', 'modules', 'index.js'), 'utf-8'),
+          'nested-2', 'modules', 'foo.js'), 'utf-8'),
       ];
 
       assert.deepEqual(expected, actual, 'Function did not return expected output.');

@@ -192,17 +192,19 @@ $ indexr --help
 
   Examples:
 
-    $ indexr ./app --out server.js --modules **/modules/ --submodules */server.js
+    $ indexr ./app --out 'server.js' --modules '**/modules/' --submodules '*/server.js'
 ```
+
+#### NOTE: All commandline globs must be enclosed in quotes!!
 
 The following example will look in the `./app` folder for modules and identify them with the glob '*/server.js' and then write a file to `./app/server.js`.
 
 ```bash
-$ indexr ./app --out server.js --submodules */server.js
+$ indexr ./app --out 'server.js' --submodules '*/server.js'
 ```
 
 ```bash
-$ indexr ./app --out server.js --modules **/modules/ --submodules */server.js
+$ indexr ./app --out 'server.js' --modules '**/modules/' --submodules '*/server.js'
 ```
 
 ### Node API signature
@@ -233,13 +235,6 @@ indexr('/app', 'server.js', {
   include: ['*/server.js', '*/index.js']
 });
 ```
-
-<!--
-Run a watch on a folder
-
-```bash
-indexr ./app --out server.js --watch ./app/* --include */server.js
-``` -->
 
 # Contributing
 
