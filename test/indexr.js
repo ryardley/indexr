@@ -26,22 +26,25 @@ const fileExists = (fileName) =>
 
 describe('handleDeprecation', () => {
   const deprecated = {
-    include: 'submodules',
+    include: {
+      sub: 'submodules',
+      message: 'This is a message',
+    },
   };
 
-  const warnFunc = sinon.spy(); // TODO: use a spy
+  const warnFunc = sinon.spy();
 
   it('should handle a deprecated object', () => {
     const actual = handleDeprecation(deprecated, {
       include: 'foo',
       warnFunc,
     });
-    assert(warnFunc.called);
+
     const expected = {
       submodules: 'foo',
-      warnFunc,
     };
 
+    assert(warnFunc.called);
     assert.deepEqual(actual, expected, 'handleDeprecation');
   });
 
@@ -52,13 +55,12 @@ describe('handleDeprecation', () => {
       submodules: 'bar',
       warnFunc,
     });
-    assert(warnFunc.called);
+
     const expected = {
       other: 'prop',
       submodules: 'bar',
-      warnFunc,
     };
-
+    assert(warnFunc.called);
     assert.deepEqual(actual, expected, 'handleDeprecation');
   });
 });
@@ -95,15 +97,26 @@ describe('indexr', () => {
     });
 
     it('should write to a file if the output filename is provided', () => {
-      indexr(inputFolder, 'server.js');
+      const warnFunc = sinon.spy();
+      indexr(inputFolder, 'server.js', { warnFunc });
+      const expected = fs.readFileSync(path.resolve(outputFolder, 'expected-es6.js'), 'utf-8');
+      const actual = fs.readFileSync(path.resolve(inputFolder, 'server.js'), 'utf-8');
+      assert.equal(expected, actual, 'Function did not return expected output.');
+      assert(warnFunc.called);
+    });
+
+
+    it('should accept outputFilename as an option', () => {
+      indexr(inputFolder, { outputFilename: 'server.js' });
       const expected = fs.readFileSync(path.resolve(outputFolder, 'expected-es6.js'), 'utf-8');
       const actual = fs.readFileSync(path.resolve(inputFolder, 'server.js'), 'utf-8');
       assert.equal(expected, actual, 'Function did not return expected output.');
     });
 
-    it('should capture import filters ', () => {
+    it('should capture submodules filters', () => {
       const actual = indexr(inputFolder, { submodules: '*/server.js' });
-      const expected = fs.readFileSync(path.resolve(outputFolder, 'expected-es6-server.js'), 'utf-8');
+      const expected = fs.readFileSync(path.resolve(outputFolder,
+        'expected-es6-server.js'), 'utf-8');
       assert.equal(expected, actual, 'Function did not return expected output.');
     });
 
@@ -115,17 +128,22 @@ describe('indexr', () => {
     });
 
     it('should remove exts provided ', () => {
-      const actual = indexr(inputFolder, { submodules: '*/server.js',
-        directImport: true, exts: ['js'] });
+      const actual = indexr(inputFolder, {
+        submodules: '*/server.js',
+        directImport: true,
+        exts: ['js'],
+      });
       const expected = fs.readFileSync(path.resolve(outputFolder,
         'expected-es6-server-direct-exts.js'), 'utf-8');
       assert.equal(expected, actual, 'Function did not return expected output.');
     });
 
     it('should accept globs as folders and run indexr on each returned result', () => {
+      const warnFunc = sinon.spy();
       indexr(fractalFolder, 'index.js', {
         modules: '**/modules/',
         submodules: '*/index.js',
+        warnFunc,
       });
 
       const expected = [
@@ -143,16 +161,19 @@ describe('indexr', () => {
       ];
 
       assert.deepEqual(expected, actual, 'Function did not return expected output.');
+      assert(warnFunc.called);
     });
   });
 
   describe('CLI', () => {
-    it('CLI should return an es6 file with correct exports', () => {
-      const actual = runCLI('indexr', inputFolder, '--out', 'index.js');
+    it('should return correct input to indexr function', () => {
+      const actual = runCLI('indexr', '/thing', '--out', 'index.js', '--watch');
       const expected = {
-        inputFolder,
-        options: {},
-        outputFilename: 'index.js',
+        inputFolder: '/thing',
+        options: {
+          watch: true,
+          outputFilename: 'index.js',
+        },
       };
       assert.deepEqual(expected, actual, 'Function did not return expected output.');
     });
