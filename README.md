@@ -157,13 +157,13 @@ module.exports = [foo, bar, baz];
 We can also filter which modules and entry files we want by setting some options. the following will only include modules which contain `server.js` files.
 
 ```bash
-$ indexr . --out 'index.js' --submodules '*/server.js'
+$ indexr . --submodules '*/server.js'
 ```
 
 By using the `directImport` flag it will include the searched files specifically in the import statements:
 
 ```bash
-$ indexr . --out 'index.js' --submodules '*/server.js' --direct-import
+$ indexr . --submodules '*/server.js' --direct-import
 ```
 
 ```javascript
