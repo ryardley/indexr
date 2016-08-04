@@ -160,7 +160,7 @@ We can also filter which modules and entry files we want by setting some options
 $ indexr . --submodules '*/server.js'
 ```
 
-By using the `directImport` flag it will include the searched files specifically in the import statements:
+By using the `--direct-import` flag it will include the searched files specifically in the import statements:
 
 ```bash
 $ indexr . --submodules '*/server.js' --direct-import
