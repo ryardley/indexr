@@ -1,9 +1,12 @@
 2016-08-04
 ==========
 
+  * Fix docs for new release.
+  * Change log
+  * 1.0.1
+  * Update changelog.
   * Minor documentation changes
   * 1.0.0
-  * Update changelog.
   * Create better process for testing and updating CHANGELOG.md
   * [breaking]: New defaults, new index file names
     Allow for new sensible defaults: Module folders are called 'modules'.
@@ -16,3 +19,4 @@
   * Move outputFilename to options object.
   * Enable testing for CLI input.
   * Incorporate travis CI
+
