@@ -205,20 +205,62 @@ $ indexr --help
 
   Options:
 
-    -h, --help               output usage information
-    -V, --version            output the version number
-    -o, --out [filename]     The name of the output file. This file will be added to each module folder.
-    -m, --modules [glob]     A glob pathed to the rootFolder that will determine which folders are module folders. If this is ommitted only the root folder is a module folder.
-    -w, --watch [glob]       A glob pathed to the rootFolder that will determine which files to watch when in watch mode.
-    -s, --submodules [glob]  A glob pathed to each module folder that will determine which submodules are imported to the index.
-    -5, --es5                Use ES5 template for index output.
-    -d, --direct-import      Include the searched files in the import statements.
-    -i, --include [glob]     Deprecated in favour of --submodules
+    -h, --help                output usage information
+    -V, --version             output the version number
+    -5 --es5                  Use ES5 template for index output.
+    -d --direct-import        Directly import files as opposed to folders.
+    -e --ext <string>         Remove this extension from imports.
+    -m --modules <string>     Glob string that determine which folders hold modules.
+    -o --out <filename>       The name of the output file.
+    -s --submodules <string>  Glob string that determine which folders are modules.
+    -w --watch [string]       Files to watch as a glob string.
 
- Examples:
 
-  $ indexr . --out index.r.js --modules '**/modules/' --submodules '*/index.js'
-  $ indexr . --watch --es5
+  -5 --es5
+  `````````
+  Supply this flag to use the ES5 template to output your index files.
+
+
+
+  -d --direct-import
+  ```````````````````
+  This flag will ensure that the output returned by the --submodules glob will be
+  imported to the index.
+
+
+
+  -e --ext <string>
+  ``````````````````
+  Remove this extension from the imported files. Useful if you would prefer to
+  import "./foo/server" instead of "./foo/server.js"
+
+
+
+  -m --modules <string>
+  ``````````````````````
+  A glob pathed to the rootFolder that will determine which folders are module
+  holders. If this is ommitted defaults to "**/modules/".
+
+
+
+  -o --out <filename>
+  ````````````````````
+  The name of the output file. This file will be added to each module folder.
+  Default is "index.r.js"
+
+
+
+  -s --submodules <string>
+  `````````````````````````
+  A glob pathed to each module holder folder that will determine which submodules
+  are imported to the index. Defaults to "*/index.js"
+
+
+
+  -w --watch [string]
+  ````````````````````
+  Files to watch as a glob string pathed from the rootFolder. When used as a
+  boolean flag default watch is "**/*"
 
 ```
 
