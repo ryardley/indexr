@@ -7,14 +7,14 @@
     "indexr": "./dist/bin.js"
   },
   "scripts": {
-    "compile": "gulp compile",
+    "build": "gulp compile",
     "dev": "gulp watch",
-    "test-and-compile": "npm run compile && npm test",
+    "test-and-compile": "npm run build && npm test",
     "update-changelog": "changelog -m https://github.com/ryardley/indexr.git > CHANGELOG.md",
     "publish-patch": "npm run test-and-compile && npm version patch && git push --tags && npm publish",
     "publish-minor": "npm run test-and-compile && npm version minor && git push --tags && npm publish",
     "publish-major": "npm run test-and-compile && npm version major && git push --tags && npm publish",
-    "test": "concurrently --raw 'npm run compile' 'npm run test-once'",
+    "test": "npm run build && npm run test-once",
     "test-once": "mocha --compilers js:babel-register test --ignore **/fixtures",
     "test-watch": "mocha --watch --compilers js:babel-register test --ignore **/fixtures"
   },
@@ -74,6 +74,7 @@
     "camelcase": "^3.0.0",
     "chalk": "^1.1.3",
     "commander": "^2.9.0",
+    "linewrap": "^0.2.1",
     "lodash": "^4.14.1",
     "walk-sync": "^0.3.0"
   }
