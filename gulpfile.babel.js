@@ -9,3 +9,5 @@ gulp.task('watch', () => watch(['lib/*', 'bin/bin.js'], { ignoreInitial: false }
 gulp.task('compile', () => gulp.src(['lib/*', 'bin/bin.js'])
   .pipe(babel())
   .pipe(gulp.dest('dist')));
+
+gulp.task('default', ['watch'])
