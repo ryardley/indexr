@@ -198,7 +198,7 @@ $ indexr . --watch
 
 For help with the commandline program you can try the help flag:
 
-```bash
+```
 $ indexr --help
 
   Usage: indexr <rootFolder> [options]
@@ -217,51 +217,50 @@ $ indexr --help
 
 
   -5 --es5
-  `````````
+  ---------
   Supply this flag to use the ES5 template to output your index files.
 
 
 
   -d --direct-import
-  ```````````````````
+  -------------------
   This flag will ensure that the output returned by the --submodules glob will be
   imported to the index.
 
 
 
   -e --ext <string>
-  ``````````````````
+  ------------------
   Remove this extension from the imported files. Useful if you would prefer to
   import "./foo/server" instead of "./foo/server.js"
 
 
 
   -m --modules <string>
-  ``````````````````````
+  ----------------------
   A glob pathed to the rootFolder that will determine which folders are module
   holders. If this is ommitted defaults to "**/modules/".
 
 
 
   -o --out <filename>
-  ````````````````````
+  --------------------
   The name of the output file. This file will be added to each module folder.
   Default is "index.r.js"
 
 
 
   -s --submodules <string>
-  `````````````````````````
+  -------------------------
   A glob pathed to each module holder folder that will determine which submodules
   are imported to the index. Defaults to "*/index.js"
 
 
 
   -w --watch [string]
-  ````````````````````
+  --------------------
   Files to watch as a glob string pathed from the rootFolder. When used as a
   boolean flag default watch is "**/*"
-
 ```
 
 #### NOTE: All commandline globs must be enclosed in quotes!!
