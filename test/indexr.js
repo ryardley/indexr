@@ -24,7 +24,8 @@ const tryer = (func, defval = false) => {
   }
 };
 
-const runCLI = (...cmd) => parseCLIInput(['node', ...cmd], new Command());
+const runCLI = (...cmd) =>
+  parseCLIInput(['node', ...cmd], new Command());
 
 const fileExists = (fileName) =>
   tryer(() => fs.lstatSync(fileName).isFile());
@@ -182,16 +183,92 @@ describe('indexr', () => {
   });
 
   describe('CLI', () => {
-    it('should return correct input to indexr function', () => {
-      const actual = runCLI('indexr', '/thing', '--out', 'index.js', '--watch');
+    it('should support --out', () => {
+      const actual = runCLI('indexr', '.', '--out', 'index.js');
       const expected = {
-        inputFolder: '/thing',
+        inputFolder: '.',
         options: {
-          watch: true,
           outputFilename: 'index.js',
         },
       };
       assert.deepEqual(expected, actual, 'Function did not return expected output.');
+    });
+
+    it('should support --es5', () => {
+      const actual = runCLI('indexr', '.', '--es5');
+      const expected = {
+        inputFolder: '.',
+        options: {
+          es5: true,
+        },
+      };
+      assert.deepEqual(expected, actual, 'Function did not return expected output.');
+    });
+
+    it('should support --direct-import', () => {
+      const actual = runCLI('indexr', '.', '--direct-import');
+      const expected = {
+        inputFolder: '.',
+        options: {
+          directImport: true,
+        },
+      };
+      assert.deepEqual(expected, actual, 'Function did not return expected output.');
+    });
+
+    it('should support --direct-import', () => {
+      const actual = runCLI('indexr', '.', '--direct-import');
+      const expected = {
+        inputFolder: '.',
+        options: {
+          directImport: true,
+        },
+      };
+      assert.deepEqual(expected, actual, 'Function did not return expected output.');
+    });
+
+    it('should support --modules', () => {
+      const actual = runCLI('indexr', '.', '--modules', '**/fooo/');
+      const expected = {
+        inputFolder: '.',
+        options: {
+          modules: ['**/fooo/'],
+        },
+      };
+      assert.deepEqual(expected, actual, 'Function did not return expected output.');
+    });
+
+    it('should support --submodules', () => {
+      const actual = runCLI('indexr', '.', '--submodules', '**/fooo/');
+      const expected = {
+        inputFolder: '.',
+        options: {
+          submodules: ['**/fooo/'],
+        },
+      };
+      assert.deepEqual(expected, actual, 'Function did not return expected output.');
+    });
+
+    it('should support --watch', () => {
+      const actual = runCLI('indexr', '.', '--watch', '**/fooo/');
+      const expected = {
+        inputFolder: '.',
+        options: {
+          watch: '**/fooo/',
+        },
+      };
+      assert.deepEqual(expected, actual, 'Function did not return expected output.');
+    });
+
+    it('should return correct --exts', () => {
+      const actual = runCLI('indexr', '.', '--ext', 'js', '--ext', 'jsx');
+      const expected = {
+        inputFolder: '.',
+        options: {
+          exts: ['js', 'jsx'],
+        },
+      };
+      assert.deepEqual(expected, actual);
     });
   });
 });
