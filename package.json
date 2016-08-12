@@ -15,8 +15,8 @@
     "publish-minor": "npm run test-and-compile && npm version minor && git push --tags && npm publish",
     "publish-major": "npm run test-and-compile && npm version major && git push --tags && npm publish",
     "test": "npm run build && npm run test-once",
-    "test-once": "mocha --compilers js:babel-register test --ignore **/fixtures",
-    "test-watch": "mocha --watch --compilers js:babel-register test --ignore **/fixtures"
+    "test-once": "mocha --compilers js:babel-register test --ignore **/fixtures --require babel-polyfill",
+    "test-watch": "mocha --watch --compilers js:babel-register test --ignore **/fixtures --require babel-polyfill"
   },
   "repository": {
     "type": "git",
@@ -71,6 +71,9 @@
     "sinon": "^1.17.5"
   },
   "dependencies": {
+    "babel-plugin-transform-async-functions": "^6.8.0",
+    "babel-plugin-transform-regenerator": "^6.11.4",
+    "babel-polyfill": "^6.13.0",
     "camelcase": "^3.0.0",
     "capitalize": "^1.0.0",
     "chalk": "^1.1.3",

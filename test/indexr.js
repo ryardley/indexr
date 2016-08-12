@@ -2,12 +2,11 @@ import path from 'path';
 import assert from 'assert';
 import indexr from '../lib';
 import fs from 'fs';
-import { handleDeprecation } from '../lib/parseArgs';
+import { handleDeprecation, defaultOptions } from '../lib/modules/parseArgs';
 import sinon from 'sinon';
-import parseCLIInput from '../lib/parseCLIInput';
+import parseCLIInput from '../lib/modules/parseCLI';
 import { Command } from 'commander';
-import { setLogLevel } from '../lib/logger';
-import defaultOptions from '../lib/defaultOptions';
+import { setLogLevel } from '../lib/modules/lib/logger';
 
 // don't log stuff we dont care
 setLogLevel('none');
