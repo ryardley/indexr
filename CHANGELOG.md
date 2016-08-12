@@ -1,3 +1,9 @@
+
+2016-08-12
+==========
+
+  * Refactor to a functional modular architecture.
+
 2016-08-04
 ==========
 

@@ -10,7 +10,7 @@
     "build": "gulp compile",
     "dev": "gulp watch",
     "test-and-compile": "npm run build && npm test",
-    "update-changelog": "changelog -m https://github.com/ryardley/indexr.git > CHANGELOG.md",
+    "update-changelog": "changelog -m https://github.com/ryardley/indexr.git | cat - CHANGELOG.md > temp && mv temp CHANGELOG.md",
     "publish-patch": "npm run test-and-compile && npm version patch && git push --tags && npm publish",
     "publish-minor": "npm run test-and-compile && npm version minor && git push --tags && npm publish",
     "publish-major": "npm run test-and-compile && npm version major && git push --tags && npm publish",
