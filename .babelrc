@@ -5,6 +5,8 @@
   ],
   "plugins": [
     "add-module-exports",
-    "transform-object-assign"
+    "transform-object-assign",
+    "transform-regenerator",
+    "transform-async-functions",
   ]
 }
