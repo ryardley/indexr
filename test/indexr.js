@@ -3,7 +3,7 @@ import defaultOptions from '../lib/modules/moduleParseArgs/defaultOptions';
 import fs from 'fs';
 import handleDeprecation from '../lib/modules/moduleParseArgs/handleDeprecation';
 import indexr from '../lib';
-import moduleParseCLI from '../lib/modules/moduleParseCLI';
+import moduleParseCLI from '../lib/modules/cli';
 import path from 'path';
 import sinon from 'sinon';
 import { Command } from 'commander';
