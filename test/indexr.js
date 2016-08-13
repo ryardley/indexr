@@ -1,9 +1,9 @@
 import assert from 'assert';
-import defaultOptions from '../lib/modules/parseArgs/defaultOptions';
+import defaultOptions from '../lib/modules/moduleParseArgs/defaultOptions';
 import fs from 'fs';
-import handleDeprecation from '../lib/modules/parseArgs/handleDeprecation';
+import handleDeprecation from '../lib/modules/moduleParseArgs/handleDeprecation';
 import indexr from '../lib';
-import parseCLIInput from '../lib/modules/parseCLI';
+import moduleParseCLI from '../lib/modules/moduleParseCLI';
 import path from 'path';
 import sinon from 'sinon';
 import { Command } from 'commander';
@@ -25,7 +25,7 @@ const tryer = (func, defval = false) => {
 };
 
 const runCLI = (...cmd) =>
-  parseCLIInput(['node', ...cmd], new Command());
+  moduleParseCLI(['node', ...cmd], new Command());
 
 const fileExists = (fileName) =>
   tryer(() => fs.lstatSync(fileName).isFile());
@@ -92,6 +92,10 @@ describe('indexr', () => {
   });
 
   describe('node API', () => {
+    // it.only('should do stuff', () => {
+    //   indexr(inputFolder, { modules: undefined });
+    // });
+
     it('should return an es6 file with correct exports', () => {
       indexr(inputFolder, { modules: undefined });
       const actual = fs.readFileSync(path.resolve(inputFolder, defaultOptions.outputFilename), 'utf-8');
