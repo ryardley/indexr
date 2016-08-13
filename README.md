@@ -321,6 +321,5 @@ Found a bug? [Submit an issue](https://github.com/ryardley/indexr/issues) or [su
 
 [Submit a feature request!](https://github.com/ryardley/indexr/issues)
 
-- [ ] Refactor to use Promises for modules so we can take advantage of async await.
 - [ ] Index Sorting
 - [ ] [Gulp Plugin](http://github.com/ryardley/gulp-indexr)
