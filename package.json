@@ -82,6 +82,7 @@
     "lodash": "^4.14.1",
     "midware": "^0.1.7",
     "midy": "file:///Users/rudi/client-projects/midy",
-    "walk-sync": "^0.3.0"
+    "walk-sync": "^0.3.0",
+    "wildglob": "^0.1.0"
   }
 }

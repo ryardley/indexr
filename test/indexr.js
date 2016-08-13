@@ -93,101 +93,115 @@ describe('indexr', () => {
 
   describe('node API', () => {
 
-    it.only('should return an es6 file with correct exports', (done) => {
+    it('should return an es6 file with correct exports', (endTest) => {
 
-      indexr(inputFolder, { modules: undefined })
-        .then(() => {
-          console.log(`checking output at ${path.resolve(inputFolder, defaultOptions.outputFilename)}...`);
-          const expected = fs.readFileSync(path.resolve(outputFolder, 'expected-es6.js'), 'utf-8');
-          const actual = fs.readFileSync(path.resolve(inputFolder, defaultOptions.outputFilename), 'utf-8');
-          console.log('expected: ', expected);
-          console.log('actual: ', actual);
-          assert.equal(expected, actual, 'Function did not return expected output.');
-          done();
-        })
-        .catch(done);
+      indexr(inputFolder, { modules: undefined }).then(() => {
+        const expected = fs.readFileSync(path.resolve(outputFolder, 'expected-es6.js'), 'utf-8');
+        const actual = fs.readFileSync(path.resolve(inputFolder, defaultOptions.outputFilename), 'utf-8');
+        assert.equal(expected, actual, 'Function did not return expected output.');
+        endTest();
+      })
+      .catch(endTest);
     });
 
-    it('should return an es5 file with correct exports', () => {
-      indexr(inputFolder, { es5: true, modules: undefined });
-      const actual = fs.readFileSync(path.resolve(inputFolder, defaultOptions.outputFilename), 'utf-8');
-      const expected = fs.readFileSync(path.resolve(outputFolder, 'expected-es5.js'), 'utf-8');
-      assert.equal(expected, actual, 'Function did not return expected output.');
+    it('should return an es5 file with correct exports', (endTest) => {
+      indexr(inputFolder, { es5: true, modules: undefined }).then(() => {
+        const actual = fs.readFileSync(path.resolve(inputFolder, defaultOptions.outputFilename), 'utf-8');
+        const expected = fs.readFileSync(path.resolve(outputFolder, 'expected-es5.js'), 'utf-8');
+        assert.equal(expected, actual, 'Function did not return expected output.');
+        endTest();
+      })
+      .catch(endTest);
     });
 
-    it('should write to a file if the output filename is provided', () => {
-      const warnFunc = sinon.spy();
+    it('should write to a file if the output filename is provided', (endTest) => {
+      // const warnFunc = sinon.spy();
 
-      indexr(inputFolder, 'server.js', { warnFunc, modules: undefined });
-      const expected = fs.readFileSync(path.resolve(outputFolder, 'expected-es6.js'), 'utf-8');
-      const actual = fs.readFileSync(path.resolve(inputFolder, 'server.js'), 'utf-8');
-
-      assert.equal(expected, actual, 'Function did not return expected output.');
-      assert(warnFunc.called);
+      indexr(inputFolder, 'server.js', { modules: undefined }).then(() => {
+        const expected = fs.readFileSync(path.resolve(outputFolder, 'expected-es6.js'), 'utf-8');
+        const actual = fs.readFileSync(path.resolve(inputFolder, 'server.js'), 'utf-8');
+        assert.equal(expected, actual, 'Function did not return expected output.');
+        endTest();
+      })
+      .catch(endTest);
     });
 
 
-    it('should accept outputFilename as an option', () => {
-      indexr(inputFolder, { outputFilename: 'server.js', modules: undefined });
-      const expected = fs.readFileSync(path.resolve(outputFolder, 'expected-es6.js'), 'utf-8');
-      const actual = fs.readFileSync(path.resolve(inputFolder, 'server.js'), 'utf-8');
-      assert.equal(expected, actual, 'Function did not return expected output.');
+    it('should accept outputFilename as an option', (endTest) => {
+      indexr(inputFolder, { outputFilename: 'server.js', modules: undefined }).then(() => {
+        const expected = fs.readFileSync(path.resolve(outputFolder, 'expected-es6.js'), 'utf-8');
+        const actual = fs.readFileSync(path.resolve(inputFolder, 'server.js'), 'utf-8');
+        assert.equal(expected, actual, 'Function did not return expected output.');
+        endTest();
+      })
+      .catch(endTest);
     });
 
-    it('should capture submodules filters', () => {
-      indexr(inputFolder, { submodules: '*/server.js', modules: undefined });
-      const actual = fs.readFileSync(path.resolve(inputFolder, defaultOptions.outputFilename));
-      const expected = fs.readFileSync(path.resolve(outputFolder,
-        'expected-es6-server.js'), 'utf-8');
-      assert.equal(expected, actual, 'Function did not return expected output.');
+    it('should capture submodules filters', (endTest) => {
+      indexr(inputFolder, { submodules: '*/server.js', modules: undefined }).then(() => {
+        const actual = fs.readFileSync(path.resolve(inputFolder, defaultOptions.outputFilename));
+        const expected = fs.readFileSync(path.resolve(outputFolder,
+          'expected-es6-server.js'), 'utf-8');
+        assert.equal(expected, actual, 'Function did not return expected output.');
+        endTest();
+      })
+      .catch(endTest);
     });
 
-    it('should directImport the files if asked ', () => {
-      indexr(inputFolder, { submodules: '*/server.js', directImport: true, modules: undefined });
-      const actual = fs.readFileSync(path.resolve(inputFolder, defaultOptions.outputFilename));
-
-      const expected = fs.readFileSync(path.resolve(outputFolder,
-        'expected-es6-server-direct.js'), 'utf-8');
-      assert.equal(expected, actual, 'Function did not return expected output.');
+    it('should directImport the files if asked ', (endTest) => {
+      indexr(inputFolder, { submodules: '*/server.js', directImport: true, modules: undefined })
+      .then(() => {
+        const actual = fs.readFileSync(path.resolve(inputFolder, defaultOptions.outputFilename));
+        const expected = fs.readFileSync(path.resolve(outputFolder, 'expected-es6-server-direct.js'), 'utf-8');
+        assert.equal(expected, actual, 'Function did not return expected output.');
+        endTest();
+      })
+      .catch(endTest);
     });
 
-    it('should remove exts provided ', () => {
+    it('should remove exts provided ', (endTest) => {
       indexr(inputFolder, {
         submodules: '*/server.js',
         directImport: true,
         modules: undefined,
         exts: ['js'],
-      });
-      const actual = fs.readFileSync(path.resolve(inputFolder, defaultOptions.outputFilename));
-      const expected = fs.readFileSync(path.resolve(outputFolder,
-        'expected-es6-server-direct-exts.js'), 'utf-8');
-      assert.equal(expected, actual, 'Function did not return expected output.');
+      }).then(() => {
+        const actual = fs.readFileSync(path.resolve(inputFolder, defaultOptions.outputFilename));
+        const expected = fs.readFileSync(path.resolve(outputFolder,
+          'expected-es6-server-direct-exts.js'), 'utf-8');
+        assert.equal(expected, actual, 'Function did not return expected output.');
+        endTest();
+      })
+      .catch(endTest);
     });
 
-    it('should accept globs as folders and run indexr on each returned result', () => {
-      const warnFunc = sinon.spy();
+    it('should accept globs as folders and run indexr on each returned result', (endTest) => {
+      // const warnFunc = sinon.spy();
       indexr(fractalFolder, 'foo.js', {
         modules: '**/modules/',
         submodules: '*/index.js',
-        warnFunc,
-      });
+        // warnFunc,
+      }).then(() => {
+        const expected = [
+          fs.readFileSync(path.resolve(outputFolder, 'expected-module.js'), 'utf-8'),
+          fs.readFileSync(path.resolve(outputFolder, 'expected-nested.js'), 'utf-8'),
+          fs.readFileSync(path.resolve(outputFolder, 'expected-double-nested.js'), 'utf-8'),
+        ];
 
-      const expected = [
-        fs.readFileSync(path.resolve(outputFolder, 'expected-module.js'), 'utf-8'),
-        fs.readFileSync(path.resolve(outputFolder, 'expected-nested.js'), 'utf-8'),
-        fs.readFileSync(path.resolve(outputFolder, 'expected-double-nested.js'), 'utf-8'),
-      ];
+        const actual = [
+          fs.readFileSync(path.resolve(fractalFolder, 'modules', 'foo.js'), 'utf-8'),
+          fs.readFileSync(path.resolve(fractalFolder, 'modules', 'module-1', 'modules',
+            'foo.js'), 'utf-8'),
+          fs.readFileSync(path.resolve(fractalFolder, 'modules', 'module-1', 'modules',
+            'nested-2', 'modules', 'foo.js'), 'utf-8'),
+        ];
 
-      const actual = [
-        fs.readFileSync(path.resolve(fractalFolder, 'modules', 'foo.js'), 'utf-8'),
-        fs.readFileSync(path.resolve(fractalFolder, 'modules', 'module-1', 'modules',
-          'foo.js'), 'utf-8'),
-        fs.readFileSync(path.resolve(fractalFolder, 'modules', 'module-1', 'modules',
-          'nested-2', 'modules', 'foo.js'), 'utf-8'),
-      ];
+        assert.deepEqual(expected, actual, 'Function did not return expected output.');
+        endTest();
+      })
+      .catch(endTest);
 
-      assert.deepEqual(expected, actual, 'Function did not return expected output.');
-      assert(warnFunc.called);
+      // assert(warnFunc.called);
     });
   });
 
