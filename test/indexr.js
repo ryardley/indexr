@@ -92,15 +92,20 @@ describe('indexr', () => {
   });
 
   describe('node API', () => {
-    // it.only('should do stuff', () => {
-    //   indexr(inputFolder, { modules: undefined });
-    // });
 
-    it('should return an es6 file with correct exports', () => {
-      indexr(inputFolder, { modules: undefined });
-      const actual = fs.readFileSync(path.resolve(inputFolder, defaultOptions.outputFilename), 'utf-8');
-      const expected = fs.readFileSync(path.resolve(outputFolder, 'expected-es6.js'), 'utf-8');
-      assert.equal(expected, actual, 'Function did not return expected output.');
+    it.only('should return an es6 file with correct exports', (done) => {
+
+      indexr(inputFolder, { modules: undefined })
+        .then(() => {
+          console.log(`checking output at ${path.resolve(inputFolder, defaultOptions.outputFilename)}...`);
+          const expected = fs.readFileSync(path.resolve(outputFolder, 'expected-es6.js'), 'utf-8');
+          const actual = fs.readFileSync(path.resolve(inputFolder, defaultOptions.outputFilename), 'utf-8');
+          console.log('expected: ', expected);
+          console.log('actual: ', actual);
+          assert.equal(expected, actual, 'Function did not return expected output.');
+          done();
+        })
+        .catch(done);
     });
 
     it('should return an es5 file with correct exports', () => {
