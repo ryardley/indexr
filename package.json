@@ -71,6 +71,7 @@
     "sinon": "^1.17.5"
   },
   "dependencies": {
+    "async": "^2.0.1",
     "babel-plugin-transform-async-functions": "^6.8.0",
     "babel-plugin-transform-regenerator": "^6.11.4",
     "babel-polyfill": "^6.13.0",
@@ -81,8 +82,6 @@
     "linewrap": "^0.2.1",
     "lodash": "^4.14.1",
     "midware": "^0.1.7",
-    "midy": "file:///Users/rudi/client-projects/midy",
-    "walk-sync": "^0.3.0",
     "wildglob": "^0.1.0"
   }
 }
