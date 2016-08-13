@@ -71,6 +71,7 @@
     "sinon": "^1.17.5"
   },
   "dependencies": {
+    "async": "^2.0.1",
     "babel-plugin-transform-async-functions": "^6.8.0",
     "babel-plugin-transform-regenerator": "^6.11.4",
     "babel-polyfill": "^6.13.0",
