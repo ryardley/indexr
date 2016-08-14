@@ -217,70 +217,9 @@ $ indexr --help
     -o --out <filename>       The name of the output file.
     -s --submodules <string>  Glob string that determine which folders are modules.
     -w --watch [string]       Files to watch as a glob string.
-
-
-  Es5
-  ----
-  -5 --es5
-
-  Supply this flag to use the ES5 template to output your index files.
-
-
-
-  Direct import
-  --------------
-  -d --direct-import
-
-  This flag will ensure that the output returned by the --submodules glob will be
-  imported to the index.
-
-
-
-  Ext
-  ----
-  -e --ext <string>
-
-  Remove this extension from the imported files. Useful if you would prefer to
-  import "./foo/server" instead of "./foo/server.js"
-
-
-
-  Modules
-  --------
-  -m --modules <string>
-
-  A glob pathed to the rootFolder that will determine which folders are module
-  holders. If this is ommitted defaults to "**/modules/".
-
-
-
-  Out
-  ----
-  -o --out <filename>
-
-  The name of the output file. This file will be added to each module folder.
-  Default is "index.r.js"
-
-
-
-  Submodules
-  -----------
-  -s --submodules <string>
-
-  A glob pathed to each module holder folder that will determine which submodules
-  are imported to the index. Defaults to "*/index.js"
-
-
-
-  Watch
-  ------
-  -w --watch [string]
-
-  Files to watch as a glob string pathed from the rootFolder. When used as a
-  boolean flag default watch is "**/*"
-
-
 ```
+
+### Examples
 
 #### NOTE: All commandline globs must be enclosed in quotes!!
 
@@ -296,23 +235,32 @@ $ indexr ./app --out 'server.js' --modules '**/modules/' --submodules '*/server.
 
 ### Node API signature
 
+Indexr is a function that returns a promise when complete.
+
 ```javascript
-indexr(folder, options)
+import indexr from 'indexr';
+
+indexr(folder, options).then((err, result) => {
+  console.log('Files have been indexed!');
+});
 ```
 
 | argument            | notes                     |
 | ------------------- | ------------- |
-| folder              | The folder to work from. |
+| rooFolder           | The root folder to work from. |
 | options             | An object containing configuration options  |
 
 ### Available options
-| option      | notes                     |
-| ------------- | --------------------------------------------- |
-| include       | Glob or an array of globs. |
-| es5           | Boolean flag to use es5 commonjs style modules over es6. This is overridden if a template function is provided |
-| template      | Either a string or a function. If a string valid values are 'es5' or 'esnext'. If a template function the function should takes an array of relative module paths and output the module file as a string |
-| outputFilename      | The name and path to the outputFile relative to the module folder. |
-| directImport      | Include the searched files in the import statements. |
+| option         | notes                                         |
+| -------------- | --------------------------------------------- |
+| es5            | Boolean flag to use es5 commonjs style modules over es6. This is overridden if a template function
+| directImport   | Include the searched files in the import statements. |
+| exts           | Remove this extension from the imported files. Useful if you would prefer to import "./foo/server" instead of "./foo/server.js" |
+| modules        |  A glob or array of globs pathed to the rootFolder that will determine which folders are module holders. If this is ommitted defaults to "**/modules/". |
+| submodules     | A glob pathed to each module holder folder that will determine which submodules are imported to the index. Defaults to "*/index.js" |
+| template       | A template function the function should takes an array of relative module paths and output the module file as a string |
+| outputFilename | The name of the output file. This file will be added to each module folder. Default is "index.r.js" |
+| watch          | Either a boolean value or a glob that represents files for chokdir to watch. |
 
 # Contributing
 
