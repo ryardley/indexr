@@ -1,6 +1,13 @@
 2016-08-14
 ==========
 
+  * 1.0.8
+  * Update Docs.
+  * Flatten module output.
+
+2016-08-14
+==========
+
   * Fix watch issues
   * Add npm badge
   * Add Diagram to README

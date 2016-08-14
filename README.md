@@ -261,7 +261,7 @@ indexr(rootFolder:String, options?:Object):Promise
 | outputFilename | 'index.r.js' | The name of the output file. This file will be added to each module folder. |
 | watch          | false | Either a boolean value or a glob that represents files for chokdir to watch. |
 
-### Example 
+### Example
 
 Here is an example
 
