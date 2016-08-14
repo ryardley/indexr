@@ -98,7 +98,7 @@ describe('indexr', () => {
       indexr(inputFolder, { modules: undefined }).then(() => {
         const expected = fs.readFileSync(path.resolve(outputFolder, 'expected-es6.js'), 'utf-8');
         const actual = fs.readFileSync(path.resolve(inputFolder, defaultOptions.outputFilename), 'utf-8');
-        assert.equal(expected, actual, 'Function did not return expected output.');
+        assert.equal(actual, expected, 'Function did not return expected output.');
         endTest();
       })
       .catch(endTest);
@@ -108,7 +108,7 @@ describe('indexr', () => {
       indexr(inputFolder, { es5: true, modules: undefined }).then(() => {
         const actual = fs.readFileSync(path.resolve(inputFolder, defaultOptions.outputFilename), 'utf-8');
         const expected = fs.readFileSync(path.resolve(outputFolder, 'expected-es5.js'), 'utf-8');
-        assert.equal(expected, actual, 'Function did not return expected output.');
+        assert.equal(actual, expected, 'Function did not return expected output.');
         endTest();
       })
       .catch(endTest);
@@ -120,7 +120,7 @@ describe('indexr', () => {
       indexr(inputFolder, 'server.js', { modules: undefined }).then(() => {
         const expected = fs.readFileSync(path.resolve(outputFolder, 'expected-es6.js'), 'utf-8');
         const actual = fs.readFileSync(path.resolve(inputFolder, 'server.js'), 'utf-8');
-        assert.equal(expected, actual, 'Function did not return expected output.');
+        assert.equal(actual, expected, 'Function did not return expected output.');
         endTest();
       })
       .catch(endTest);
@@ -131,7 +131,7 @@ describe('indexr', () => {
       indexr(inputFolder, { outputFilename: 'server.js', modules: undefined }).then(() => {
         const expected = fs.readFileSync(path.resolve(outputFolder, 'expected-es6.js'), 'utf-8');
         const actual = fs.readFileSync(path.resolve(inputFolder, 'server.js'), 'utf-8');
-        assert.equal(expected, actual, 'Function did not return expected output.');
+        assert.equal(actual, expected, 'Function did not return expected output.');
         endTest();
       })
       .catch(endTest);
@@ -142,7 +142,7 @@ describe('indexr', () => {
         const actual = fs.readFileSync(path.resolve(inputFolder, defaultOptions.outputFilename));
         const expected = fs.readFileSync(path.resolve(outputFolder,
           'expected-es6-server.js'), 'utf-8');
-        assert.equal(expected, actual, 'Function did not return expected output.');
+        assert.equal(actual, expected, 'Function did not return expected output.');
         endTest();
       })
       .catch(endTest);
@@ -153,7 +153,7 @@ describe('indexr', () => {
       .then(() => {
         const actual = fs.readFileSync(path.resolve(inputFolder, defaultOptions.outputFilename));
         const expected = fs.readFileSync(path.resolve(outputFolder, 'expected-es6-server-direct.js'), 'utf-8');
-        assert.equal(expected, actual, 'Function did not return expected output.');
+        assert.equal(actual, expected, 'Function did not return expected output.');
         endTest();
       })
       .catch(endTest);
@@ -169,7 +169,36 @@ describe('indexr', () => {
         const actual = fs.readFileSync(path.resolve(inputFolder, defaultOptions.outputFilename));
         const expected = fs.readFileSync(path.resolve(outputFolder,
           'expected-es6-server-direct-exts.js'), 'utf-8');
-        assert.equal(expected, actual, 'Function did not return expected output.');
+        assert.equal(actual, expected, 'Function did not return expected output.');
+        endTest();
+      })
+      .catch(endTest);
+    });
+
+    it('should use named exports', (endTest) => {
+      indexr(inputFolder, {
+        modules: undefined,
+        namedExports: true,
+      })
+      .then(() => {
+        const expected = fs.readFileSync(path.resolve(outputFolder, 'expected-es6-named-exports.js'), 'utf-8');
+        const actual = fs.readFileSync(path.resolve(inputFolder, defaultOptions.outputFilename), 'utf-8');
+        assert.equal(actual, expected, 'Function did not return expected output.');
+        endTest();
+      })
+      .catch(endTest);
+    });
+
+    it('should use named exports for es5', (endTest) => {
+      indexr(inputFolder, {
+        modules: undefined,
+        es5: true,
+        namedExports: true,
+      })
+      .then(() => {
+        const expected = fs.readFileSync(path.resolve(outputFolder, 'expected-es5-named-exports.js'), 'utf-8');
+        const actual = fs.readFileSync(path.resolve(inputFolder, defaultOptions.outputFilename), 'utf-8');
+        assert.equal(actual, expected, 'Function did not return expected output.');
         endTest();
       })
       .catch(endTest);
@@ -245,6 +274,17 @@ describe('indexr', () => {
         inputFolder: '.',
         options: {
           directImport: true,
+        },
+      };
+      assert.deepEqual(expected, actual, 'Function did not return expected output.');
+    });
+
+    it('should support --named-exports', () => {
+      const actual = runCLI('indexr', '.', '--named-exports');
+      const expected = {
+        inputFolder: '.',
+        options: {
+          namedExports: true,
         },
       };
       assert.deepEqual(expected, actual, 'Function did not return expected output.');
