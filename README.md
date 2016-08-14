@@ -3,7 +3,7 @@
 # Indexr
 Dynamic index modules for your Node or client packaged ES6 submodules.
 
-<img src="docs/images/diagram.png" />
+<img src="docs/images/reducer-diagram.png" />
 
 ## Background
 
