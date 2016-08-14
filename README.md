@@ -287,7 +287,7 @@ Here is an example
 
 ```javascript
 import indexr from 'indexr';
-import es6 from 'indexr/dist/modules/template/es6';
+import es6 from 'indexr/dist/modules/template/es6'; // This will change don't do this.
 
 indexr(__dirname, {
   es5: false,
@@ -296,13 +296,15 @@ indexr(__dirname, {
   directImport: true,
   exts: ['js', 'jsx'],
   outputFilename: 'index.js',
-  template: es6,
+  template: es6, // or some function that takes an array of module paths and spits out a template
   watch: false,
 })
 .then((err, result) => {
   console.log('Files have been indexed!');
 });
 ```
+
+*NOTE: dont load the template from the dist file as it's location may change. This is only for illustration purposes.*
 
 # Contributing
 
