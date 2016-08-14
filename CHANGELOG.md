@@ -1,3 +1,10 @@
+2016-08-14
+==========
+
+  * Fix watch issues
+  * Add npm badge
+  * Add Diagram to README
+  * Tidy up CLI code
 
 2016-08-12
 ==========
