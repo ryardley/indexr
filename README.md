@@ -10,7 +10,7 @@ Dynamic index modules for your Node or client packaged ES6 submodules.
 
 Good application architecture should be modular in terms of features. A common thing to do is to unify features with 'plumbing' code to load them together into arrays so they can be manipulated by a central process.
 
-An example might be express routes:
+An example might be express routes. Say you have routes organised by feature like this:
 
 ```
 app/modules
@@ -20,6 +20,8 @@ app/modules
  ├── product
  └── user
 ```
+
+As a good engineer you would then write plumbing code that looks like this:
 
 ```javascript
 /* app/modules/index.js */
@@ -38,7 +40,8 @@ export default [
 ];
 ```
 
-You can then them load them to express:
+So you can then them load them to express liek this:
+
 ```javascript
 /* app/index.js */
 import routes from './modules';
@@ -62,7 +65,6 @@ You can try something like this in your modules folder:
 export default fs
   .readdirSync(moduleFolder)
   .filter((listing) => {
-    // is it a folder with an index.js? Just asking this question in node requires try catch!!
     try {
       return fs.statSync(p).isDirectory()
         && fs.statSync(path.resolve(p, 'index.js')).isFile();
@@ -71,14 +73,15 @@ export default fs
     }
   })
   .map((listing) => {
-    // sneekily require the module breaking ES6 module loading in the process...
     return require(path.resolve(moduleFolder, listing))
   });
 ```
 
-This works but ES6 imports are declarative and meant for static analysis. The function `require` is actually from the commonjs API and is not part of the ES6 modules spec. Simply put ES6 modules cannot be dynamic but that doesn't stop us needing to load things simply and dynamically, does it?
+This works but ES6 imports are declarative and meant for static analysis. The function `require` is actually from the commonjs API and is not part of the ES6 modules spec and will eventually be deprecated. Simply put ES6 modules cannot be dynamic.
 
-Indexr is designed to solve this problem by automatically generating index root modules from submodules that live in your source path.
+That doesn't stop us needing to load things simply and dynamically, does it?
+
+**Indexr** is designed to solve this problem by automatically generating index root modules from submodules that live in your source path.
 
 # Installation
 
