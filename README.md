@@ -8,7 +8,52 @@ Dynamic index modules for your Node or client packaged ES6 submodules.
 
 ## Background
 
-ES6 modules are great but what if you have dynamic modules that should be autoloaded?
+Good application architecture should be modular in terms of features. A common thing to do is to unify features with 'plumbing' code to load them together into arrays so they can be manipulated by a central process.
+
+An example might be express routes:
+
+```
+app/modules
+ ├── auth
+ ├── errors
+ ├── home
+ ├── product
+ └── user
+```
+
+```javascript
+/* app/modules/index.js */
+import auth from './auth';
+import errors from './errors';
+import home from './home';
+import product from './product';
+import user from './user';
+
+export default [
+  auth,
+  errors,
+  home,
+  product,
+  user,
+];
+```
+
+You can then them load them to express:
+```javascript
+/* app/index.js */
+import routes from './modules';
+import express from 'express';
+
+const app = express();
+
+// Apply all routes from within the routes folder
+routes.map((route) => {
+  app.use(route);
+});
+
+```
+
+So that is all great but what if you forget to update your index all the time like I do and/or have dynamic modules that really should be autoloaded?
 
 You can try something like this in your modules folder:
 
@@ -31,46 +76,7 @@ export default fs
   });
 ```
 
-This works but ES6 imports are declarative and meant for static analysis. The function `require` is actually from the commonjs API and is not part of the ES6 modules spec. Simply put ES6 modules cannot be dynamic but that doesn't stop us needing to load things simply and dynamically, does it? Assuming we have a folder full of routes modules we want to be able to do the following:
-
-```javascript
-import routes from './routes'; // folder full of 20-30 routes
-import express from 'express';
-
-const app = express();
-
-// Apply all routes from within the routes folder
-routes.map((route) => {
-  app.use(route);
-});
-
-//... do other things
-```
-
-The answer has been to manually maintain a root module that exports your submodules as an array.
-
-```javascript
-// ./routes/index.js
-import api from './api';
-import products from './products';
-import errors from './errors';
-// ... import more stuff
-
-export default [
-  api,
-  products,
-  errors,
-  // ... export more stuff
-];
-```
-
-This is great because it is still statically analysable and we can import our modules as an array by simply using:
-
-```javascript
-import routes from './routes';
-```
-
-However this leads to errors if you forget to update your root module and maintainence more difficult especially if you have many modules to import.
+This works but ES6 imports are declarative and meant for static analysis. The function `require` is actually from the commonjs API and is not part of the ES6 modules spec. Simply put ES6 modules cannot be dynamic but that doesn't stop us needing to load things simply and dynamically, does it?
 
 Indexr is designed to solve this problem by automatically generating index root modules from submodules that live in your source path.
 
