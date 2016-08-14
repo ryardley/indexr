@@ -8,5 +8,6 @@
     "transform-object-assign",
     "transform-regenerator",
     "transform-async-functions",
-  ]
+  ],
+  "sourceMaps": true,
 }

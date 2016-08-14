@@ -211,7 +211,7 @@ describe('indexr', () => {
       const expected = {
         inputFolder: '.',
         options: {
-          outputFilename: 'index.js',
+          outputFileName: 'index.js',
         },
       };
       assert.deepEqual(expected, actual, 'Function did not return expected output.');
