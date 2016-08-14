@@ -176,7 +176,7 @@ module.exports = [foo, bar, baz];
 
 ### Including the globbed files.
 
-By using the `--  direct-import` flag it will include the searched files specifically in the import statements:
+By using the `--direct-import` flag it will include the searched files specifically in the import statements:
 
 ```bash
 $ indexr . --submodules '*/server.js' --direct-import
