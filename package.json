@@ -15,7 +15,7 @@
     "publish-minor": "npm run test-and-compile && npm version minor && git push --tags && npm publish",
     "publish-major": "npm run test-and-compile && npm version major && git push --tags && npm publish",
     "test": "npm run build && npm run test-once",
-    "coverage": "npm run build && nyc --require babel-core/register npm run test-once && nyc report --reporter=text-lcov | coveralls",
+    "report-coverage": "npm run build && nyc --require babel-core/register npm run test-once && nyc report --reporter=lcov > coverage.lcov && codecov",
     "test-once": "mocha --compilers js:babel-register test --ignore **/fixtures --require babel-polyfill",
     "test-watch": "mocha --watch --compilers js:babel-register test --ignore **/fixtures --require babel-polyfill"
   },
@@ -60,8 +60,8 @@
     "babel-register": "^6.11.6",
     "chai": "^3.5.0",
     "changelog": "^1.0.7",
+    "codecov": "^1.0.1",
     "concurrently": "^2.2.0",
-    "coveralls": "^2.11.12",
     "eslint": "^2.13.1",
     "eslint-config-airbnb": "^9.0.1",
     "eslint-plugin-import": "^1.11.0",
