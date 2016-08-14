@@ -1,4 +1,5 @@
 <img src="https://travis-ci.org/ryardley/indexr.svg?branch=master" />
+[![npm version](https://badge.fury.io/js/indexr.svg)](https://badge.fury.io/js/indexr)
 
 # Indexr
 Dynamic index modules for your Node or client packaged ES6 submodules.
