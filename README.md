@@ -40,7 +40,7 @@ export default [
 ];
 ```
 
-So you can then them load them to express liek this:
+So you can then them load them to express like this:
 
 ```javascript
 /* app/index.js */
@@ -56,7 +56,7 @@ routes.map((route) => {
 
 ```
 
-So that is all great but what if you forget to update your index all the time like I do and/or have dynamic modules that really should be autoloaded?
+So that is all great but what if you forget to update your index all the time (like I do) and/or have dynamic modules that really should be autoloaded?
 
 You can try something like this in your modules folder:
 
@@ -77,7 +77,11 @@ export default fs
   });
 ```
 
-This works but ES6 imports are declarative and meant for static analysis. The function `require` is actually from the commonjs API and is not part of the ES6 modules spec and will eventually be deprecated. Simply put ES6 modules cannot be dynamic.
+This works but there are problems with this.
+* ES6 imports are declarative and meant for static analysis.
+* The function `require` is actually from the commonjs API and is not part of the ES6 modules spec and will eventually be deprecated.
+
+Simply put ES6 modules [cannot be dynamic](http://stackoverflow.com/questions/30340005/importing-modules-using-es6-syntax-and-dynamic-path).
 
 That doesn't stop us needing to load things simply and dynamically, does it?
 
