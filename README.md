@@ -233,31 +233,15 @@ $ indexr ./app --out 'server.js' --submodules '*/server.js'
 $ indexr ./app --out 'server.js' --modules '**/modules/' --submodules '*/server.js'
 ```
 
-### Node API signature
+## Node API
+
+### Signature
 
 ```typescript
 indexr(rootFolder:String, options?:Object):Promise
 ```
 
-Here is an example
-
-```javascript
-import indexr from 'indexr';
-
-indexr(__dirname, {
-  es5: false,
-  modules: '**/modules/',   
-  submodules: '*/index.js',
-  directImport: true,
-  exts: ['js', 'jsx'],
-  outputFilename: 'index.js',
-  watch: false,
-}).then((err, result) => {
-  console.log('Files have been indexed!');
-});
-```
-
-## Signature
+### Arguments
 
 | argument            | notes                     |
 | ------------------- | ------------- |
@@ -265,16 +249,39 @@ indexr(__dirname, {
 | options             | An object containing configuration options  |
 
 ### Available options
-| option         | notes                                         |
-| -------------- | --------------------------------------------- |
-| es5            | Boolean flag to use es5 commonjs style modules over es6. This is overridden if a template function
-| directImport   | Include the searched files in the import statements. |
-| exts           | Remove this extension from the imported files. Useful if you would prefer to import "./foo/server" instead of "./foo/server.js" |
-| modules        |  A glob or array of globs pathed to the rootFolder that will determine which folders are module holders. If this is ommitted defaults to "**/modules/". |
-| submodules     | A glob pathed to each module holder folder that will determine which submodules are imported to the index. Defaults to "*/index.js" |
-| template       | A template function the function should takes an array of relative module paths and output the module file as a string |
-| outputFilename | The name of the output file. This file will be added to each module folder. Default is "index.r.js" |
-| watch          | Either a boolean value or a glob that represents files for chokdir to watch. |
+
+| option         | default | notes |
+| -------------- | ------  | -----------|
+| es5            | false | Boolean flag to use es5 commonjs style modules over es6. This is overridden if a template function|
+| directImport   | false | Include the searched files in the import statements. |
+| exts           | [] | Remove this extension from the imported files. Useful if you would prefer to import "./foo/server" instead of "./foo/server.js" |
+| modules        | '\*\*/modules/' | A glob or array of globs pathed to the rootFolder that will determine which folders are module holders. If this is ommitted defaults to "**/modules/". |
+| submodules     | '\*/' | A glob pathed to each module holder folder that will determine which submodules are imported to the index. Defaults to "*/index.js" |
+| template       | indexrs es6 template | A template function the function should takes an array of relative module paths and output the module file as a string |
+| outputFilename | 'index.r.js' | The name of the output file. This file will be added to each module folder. |
+| watch          | false | Either a boolean value or a glob that represents files for chokdir to watch. |
+
+### Example 
+
+Here is an example
+
+```javascript
+import indexr from 'indexr';
+import es6 from 'indexr/dist/modules/template/es6';
+
+indexr(__dirname, {
+  es5: false,
+  modules: '**/modules/',
+  submodules: '*/index.js',
+  directImport: true,
+  exts: ['js', 'jsx'],
+  outputFilename: 'index.js',
+  watch: false,
+})
+.then((err, result) => {
+  console.log('Files have been indexed!');
+});
+```
 
 # Contributing
 
