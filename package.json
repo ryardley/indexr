@@ -1,7 +1,7 @@
 {
   "name": "indexr",
   "version": "1.0.9",
-  "description": "Dynamic Index Modules for your Node or client packaged ES6 Submodules",
+  "description": "Create better ES6+ software architecture with automated dynamic index modules.",
   "main": "./dist/index.js",
   "bin": {
     "indexr": "./dist/bin.js"
@@ -15,6 +15,7 @@
     "publish-minor": "npm run test-and-compile && npm version minor && git push --tags && npm publish",
     "publish-major": "npm run test-and-compile && npm version major && git push --tags && npm publish",
     "test": "npm run build && npm run test-once",
+    "coverage": "nyc --require babel-core/register npm run test-once",
     "test-once": "mocha --compilers js:babel-register test --ignore **/fixtures --require babel-polyfill",
     "test-watch": "mocha --watch --compilers js:babel-register test --ignore **/fixtures --require babel-polyfill"
   },
@@ -70,6 +71,7 @@
     "gulp-babel": "^6.1.2",
     "gulp-watch": "^4.3.9",
     "mocha": "^3.0.0",
+    "nyc": "^8.1.0",
     "sinon": "^1.17.5"
   },
   "dependencies": {

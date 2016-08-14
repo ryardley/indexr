@@ -303,6 +303,12 @@ indexr(__dirname, {
 
 # Contributing
 
+### Coverage
+
+```bash
+$ npm run coverage
+```
+
 Found a bug? [Submit an issue](https://github.com/ryardley/indexr/issues) or [submit a pull request!](https://github.com/ryardley/indexr/pulls)
 
 If anything is unclear in these docs let me know by [submitting an issue](https://github.com/ryardley/indexr/issues)
