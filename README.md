@@ -176,6 +176,14 @@ We can change the glob used to find the modules folder which is useful if you do
 $ indexr . --modules '**/features/'
 ```
 
+### Change the output filename
+
+We can change the output filename of the file indexr produces.
+
+```bash
+$ indexr . --out 'index.js'
+```
+
 ### Change what qualifies as a module.
 
 We can also filter which modules and entry files we want by setting some options. the following will only include modules which contain `server.js` files.
