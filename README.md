@@ -1,6 +1,6 @@
 <img src="https://travis-ci.org/ryardley/indexr.svg?branch=master" />
 <a href="https://badge.fury.io/js/indexr"><img src="https://badge.fury.io/js/indexr.svg" /></a>
-<a href='https://coveralls.io/github/ryardley/indexr?branch=master'><img src='https://coveralls.io/repos/github/ryardley/indexr/badge.svg?branch=master' alt='Coverage Status' /></a>
+<a href='https://codecov.io/gh/ryardley/indexr'><img src='https://img.shields.io/codecov/c/github/ryardley/indexr.svg?maxAge=2592000' alt='Coverage Status' /></a>
 
 # Indexr
 Dynamic index modules for your Node or client packaged ES6 submodules.
