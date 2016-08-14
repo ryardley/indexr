@@ -14,7 +14,7 @@
     "publish-patch": "npm run test-and-compile && npm version patch && git push --tags && npm publish",
     "publish-minor": "npm run test-and-compile && npm version minor && git push --tags && npm publish",
     "publish-major": "npm run test-and-compile && npm version major && git push --tags && npm publish",
-    "test": "npm run build &&   nyc --require babel-core/register npm run test-once",
+    "test": "npm run build && nyc --require babel-core/register npm run test-once && nyc report --reporter=text-lcov | coveralls",
     "test-once": "mocha --compilers js:babel-register test --ignore **/fixtures --require babel-polyfill",
     "test-watch": "mocha --watch --compilers js:babel-register test --ignore **/fixtures --require babel-polyfill"
   },
