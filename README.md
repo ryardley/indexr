@@ -235,19 +235,33 @@ $ indexr ./app --out 'server.js' --modules '**/modules/' --submodules '*/server.
 
 ### Node API signature
 
-Indexr is a function that returns a promise when complete.
+```typescript
+indexr(rootFolder:String, options?:Object):Promise
+```
+
+Here is an example
 
 ```javascript
 import indexr from 'indexr';
 
-indexr(folder, options).then((err, result) => {
+indexr(__dirname, {
+  es5: false,
+  modules: '**/modules/',   
+  submodules: '*/index.js',
+  directImport: true,
+  exts: ['js', 'jsx'],
+  outputFilename: 'index.js',
+  watch: false,
+}).then((err, result) => {
   console.log('Files have been indexed!');
 });
 ```
 
+## Signature
+
 | argument            | notes                     |
 | ------------------- | ------------- |
-| rooFolder           | The root folder to work from. |
+| rootFolder          | The root folder to work from. |
 | options             | An object containing configuration options  |
 
 ### Available options
