@@ -276,6 +276,7 @@ indexr(__dirname, {
   directImport: true,
   exts: ['js', 'jsx'],
   outputFilename: 'index.js',
+  template: es6,
   watch: false,
 })
 .then((err, result) => {
