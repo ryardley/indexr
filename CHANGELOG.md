@@ -1,3 +1,8 @@
+2016-08-15
+==========
+
+  * Add named exports in response to https://github.com/ryardley/indexr/issues/6
+
 2016-08-14
 ==========
 
