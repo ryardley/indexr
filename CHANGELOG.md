@@ -1,7 +1,7 @@
 2016-08-16
 ==========
 
-  * Modules Ignore globbing fixed!
+  * Modules ignore globbing fixed!
 
 2016-08-15
 ==========
