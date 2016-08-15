@@ -19,7 +19,6 @@ const babelTransform = () => gulp.src(watchGlobs)
   .pipe(babel())
   .pipe(gulp.dest('dist'));
 
-
 gulp.task('indexr', () => runIndexr());
 
 gulp.task('watch', ['indexr'], () => watch(watchGlobs, watchConfig, () => {

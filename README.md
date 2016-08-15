@@ -317,8 +317,26 @@ indexr(__dirname, {
 
 # Contributing
 
-Found a bug? [Submit an issue](https://github.com/ryardley/indexr/issues) or [submit a pull request!](https://github.com/ryardley/indexr/pulls)
+Start the gulp watcher.
 
-If anything is unclear in these docs let me know by [submitting an issue](https://github.com/ryardley/indexr/issues)
+```bash
+$ gulp
+```
+
+Edit the code.
+
+### Feedback?
+
+1. [Submit an issue](https://github.com/ryardley/indexr/issues)
+
+___
+
+### Found a bug?
+
+1. [Submit an issue](https://github.com/ryardley/indexr/issues)
+  or
+1. [Submit a pull request!](https://github.com/ryardley/indexr/pulls)
+
+If anything is unclear or wrong in these docs please let me know by [submitting an issue](https://github.com/ryardley/indexr/issues)
 
 
