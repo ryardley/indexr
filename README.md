@@ -170,10 +170,10 @@ $ indexr --help
     -o --out <filename>              The name of the output file.
     -d --direct-import               Directly import files as opposed to folders.
     -m --modules <string>            Glob string that determine which folders hold modules.
-    -i --modules-ignore <string>     Glob string that determine which folders hold modules.
+    -i --modules-ignore <string>     Glob string that determine which folders are ignored.
     -5 --es5                         Use ES5 template for index output.
     -n --named-exports               Use named exports instead of arrays.
-    -s --submodules <string>         Glob string that determine which folders are modules.
+    -s --submodules <string>         Glob string that determine what is a submodule.
     -g --submodules-ignore <string>  Glob string that determine which submodules are ignored.
     -w --watch [string]              Files to watch as a glob string.
 
