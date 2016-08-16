@@ -6,31 +6,35 @@ import watch from 'gulp-watch';
 import chalk from 'chalk';
 
 const watchGlobs = ['lib/**/*', 'bin/bin.js'];
-const watchConfig = { ignored: '**/cliflags.js' };
+const watchIgnore = '**/cliflags.js';
 
-const runIndexr = () => indexr(path.resolve(__dirname, './lib'), {
-  modules: '**/modules/',
-  submodules: '*/cliflags.js',
-  outputFilename: 'cliflags.js',
-  directImport: true,
-});
+function runIndexr() {
+  return indexr(path.resolve(__dirname, './lib'), {
+    modules: '**/modules/',
+    submodules: '*/cliflags.js',
+    outputFilename: 'cliflags.js',
+    directImport: true,
+  });
+}
 
-const babelTransform = () => gulp.src(watchGlobs)
-  .pipe(babel())
-  .pipe(gulp.dest('dist'));
+function babelTransform() {
+  return gulp.src(watchGlobs)
+    .pipe(babel())
+    .pipe(gulp.dest('dist'));
+}
 
-gulp.task('indexr', () => runIndexr());
+function watcher() {
+  const watchConfig = { ignored: watchIgnore };
+  return watch(watchGlobs, watchConfig, () => {
+    runIndexr()
+      .then(babelTransform)
+      .catch((err) => {
+        console.log(chalk.red(err));
+      });
+  });
+}
 
-gulp.task('watch', ['indexr'], () => watch(watchGlobs, watchConfig, () => {
-  runIndexr()
-    .then(babelTransform)
-    .catch((err) => {
-      console.log(chalk.red(err));
-    });
-}));
-
-gulp.task('compile', () => gulp.src(['lib/**/*', 'bin/bin.js'])
-  .pipe(babel())
-  .pipe(gulp.dest('dist')));
-
+gulp.task('indexr', runIndexr);
+gulp.task('watch', ['compile'], watcher);
+gulp.task('compile', ['indexr'], babelTransform);
 gulp.task('default', ['watch']);

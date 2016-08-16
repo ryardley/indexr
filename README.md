@@ -323,6 +323,12 @@ Start the gulp watcher.
 $ gulp
 ```
 
+Run the tests
+
+```bash
+$ npm run test-watch
+```
+
 Edit the code.
 
 ### Feedback?
