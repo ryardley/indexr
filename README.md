@@ -4,7 +4,7 @@
 <a href='https://www.npmjs.com/package/indexr'><img src='https://img.shields.io/npm/dt/indexr.svg?maxAge=2592000' alt='Coverage Status' /></a>
 
 # Indexr
-Dynamic index modules for your Node or client packaged ES6 submodules.
+Dynamic index module boilerplate creator for your Node or client packaged ES6 submodules. **Indexr** overcomes some of the limits of ES6 modules by autogenerating module index boilerplate code usually as part of a precompilation stage in your build process.
 
 <img src="docs/images/reducer-diagram.png?1" />
 
