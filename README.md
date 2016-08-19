@@ -281,7 +281,7 @@ indexr(rootFolder:String, options?:Object):Promise
 | directImport   | false | Include the searched files in the import statements. |
 | exts           | [] | Remove this extension from the imported files. A usefull example might be `['js']` which you would use if you would prefer to import "./foo/server" instead of "./foo/server.js" |
 | modules        | '\*\*/modules/' | A glob or array of globs pathed to the rootFolder that will determine which folders are module holders. If this is ommitted defaults to "**/modules/". |
-| modulesIgnore | A glob pathed to the rootFolder that will determine which folders are not module holders. If this is ommitted nothing is ignored. |
+| modulesIgnore | undefined | A glob pathed to the rootFolder that will determine which folders are not module holders. If this is ommitted nothing is ignored. |
 | namedExports   | false |   This flag will ensure that indexes use named exports instead of arrays. |
 | submodules     | '\*/' | A glob pathed to each module holder folder that will determine which submodules are imported to the index. Defaults to "*/index.js" |
 | submodulesIgnore | A glob pathed to the rootFolder that will determine which folders are not considered submodules. If this is ommitted nothing is ignored. |
