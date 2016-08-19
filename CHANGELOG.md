@@ -1,3 +1,8 @@
+2016-08-20
+==========
+
+  * Add missing chokidar dependency.
+
 2016-08-16
 ==========
 
