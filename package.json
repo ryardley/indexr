@@ -1,6 +1,6 @@
 {
   "name": "indexr",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Automated dynamic indexes for your ES6+ source code.",
   "main": "./dist/index.js",
   "bin": {
