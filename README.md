@@ -279,7 +279,7 @@ indexr(rootFolder:String, options?:Object):Promise
 | -------------- | ------  | -----------|
 | es5            | false | Boolean flag to use es5 commonjs style modules over es6. This is overridden if a template function|
 | directImport   | false | Include the searched files in the import statements. |
-| exts           | [] | Remove this extension from the imported files. Useful if you would prefer to import "./foo/server" instead of "./foo/server.js" |
+| exts           | [] | Remove this extension from the imported files. A usefull example might be `['js']` which you would use if you would prefer to import "./foo/server" instead of "./foo/server.js" |
 | modules        | '\*\*/modules/' | A glob or array of globs pathed to the rootFolder that will determine which folders are module holders. If this is ommitted defaults to "**/modules/". |
 | modulesIgnore | A glob pathed to the rootFolder that will determine which folders are not module holders. If this is ommitted nothing is ignored. |
 | namedExports   | false |   This flag will ensure that indexes use named exports instead of arrays. |
