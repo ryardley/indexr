@@ -10,7 +10,7 @@ Dynamic index module boilerplate creator for your Node or client packaged ES6 su
 
 ## Background
 
-Good application architecture should be modular in terms of features. A common thing to do is to unify features with 'plumbing' code to load them together into arrays so they can be manipulated by a central process.
+Good application structure should be modular in terms of features. A common thing to do is to unify features with 'plumbing' code to load them together into arrays so they can be manipulated by a central process.
 
 An example might be express routes. Say you have routes organised by feature like this:
 
