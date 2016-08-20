@@ -9,7 +9,7 @@ import path from 'path';
 import sinon from 'sinon';
 import { Command } from 'commander';
 import { setLogLevel } from '../lib/utils/logger';
-
+import chokidar from 'chokidar';
 // TODO: Simplify some of these examples
 
 // don't log stuff we dont care
@@ -32,6 +32,16 @@ const runCLI = (...cmd) =>
 
 const fileExists = (fileName) =>
   tryer(() => fs.lstatSync(fileName).isFile());
+
+let sandbox;
+beforeEach(() => {
+  sandbox = sinon.sandbox.create();
+});
+
+afterEach(() => {
+  sandbox.restore();
+});
+
 
 describe('handleDeprecation', () => {
   const deprecated = {
@@ -261,6 +271,28 @@ describe('indexr', () => {
         endTest();
       })
       .catch(endTest);
+    });
+
+    it('should run the file watcher', () => {
+      sinon.stub(chokidar, 'watch', () => ({ on: () => {} }));
+
+      indexr(fractalFolder, 'thing.js', {
+        watch: '**/foo/*',
+      });
+
+      assert(chokidar.watch.withArgs('**/foo/*', { ignored: ['**/modules/thing.js'] }).calledOnce, 'Chockidar was not called with the correct args.');
+      chokidar.watch.restore();
+    });
+
+    it('should run the file watcher on **/* with watch: true', () => {
+      sinon.stub(chokidar, 'watch', () => ({ on: () => {} }));
+
+      indexr(fractalFolder, 'thing.js', {
+        watch: true,
+      });
+
+      assert(chokidar.watch.withArgs('**/*', { ignored: ['**/modules/thing.js'] }).calledOnce, 'Chockidar was not called with the correct args.');
+      chokidar.watch.restore();
     });
   });
 
