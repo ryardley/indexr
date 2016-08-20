@@ -18,8 +18,7 @@ Dynamic index module boilerplate creator for your Node or client packaged ES6 su
   - [Tip](#tip)
 - [Usage](#usage)
   - [CLI Usage](#cli-usage)
-    - [Examples](#examples)
-      - [NOTE: All commandline globs must be enclosed in quotes!!](#note-all-commandline-globs-must-be-enclosed-in-quotes)
+    - [Syntax Example](#syntax-example)
     - [Change the modules folder](#change-the-modules-folder)
     - [Change the output filename](#change-the-output-filename)
     - [Change what qualifies as a module.](#change-what-qualifies-as-a-module)
@@ -209,7 +208,7 @@ $ indexr --help
 
 ```
 
-### Examples
+### Syntax Example
 
 **NOTE: All commandline globs must be enclosed in quotes!!**
 
