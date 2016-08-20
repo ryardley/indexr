@@ -211,7 +211,7 @@ $ indexr --help
 
 ### Examples
 
-#### NOTE: All commandline globs must be enclosed in quotes!!
+**NOTE: All commandline globs must be enclosed in quotes!!**
 
 The following example will look in the `./app` folder for modules folders identified by '**/modules/' and then identify submodules given by '*/server.js' and use them to write a file to `./app/modules/server.js`.
 
