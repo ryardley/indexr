@@ -1,9 +1,19 @@
+
+# Indexr
+<a href="https://travis-ci.org/ryardley/indexr"><img src="https://travis-ci.org/ryardley/indexr.svg?branch=master" /></a>
+<a href="https://badge.fury.io/js/indexr"><img src="https://badge.fury.io/js/indexr.svg" /></a>
+<a href='https://codecov.io/gh/ryardley/indexr'><img src='https://img.shields.io/codecov/c/github/ryardley/indexr.svg?maxAge=2592000&cb=20160820.3' alt='Coverage Status' /></a>
+<a href='https://www.npmjs.com/package/indexr'><img src='https://img.shields.io/npm/dt/indexr.svg?maxAge=2592000' alt='Coverage Status' /></a>
+
+Dynamic index module boilerplate creator for your Node or client packaged ES6 submodules. **Indexr** overcomes some of the limits of ES6 modules by autogenerating module index boilerplate code usually as part of a precompilation stage in your build process.
+
+<img src="docs/images/reducer-diagram.png?1" />
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+##Contents
 
-- [Indexr](#indexr)
-  - [Background](#background)
+- [Background](#background)
 - [Installation](#installation)
   - [Tip](#tip)
 - [Usage](#usage)
@@ -28,17 +38,7 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-<a href="https://travis-ci.org/ryardley/indexr"><img src="https://travis-ci.org/ryardley/indexr.svg?branch=master" /></a>
-<a href="https://badge.fury.io/js/indexr"><img src="https://badge.fury.io/js/indexr.svg" /></a>
-<a href='https://codecov.io/gh/ryardley/indexr'><img src='https://img.shields.io/codecov/c/github/ryardley/indexr.svg?maxAge=2592000&cb=20160820.3' alt='Coverage Status' /></a>
-<a href='https://www.npmjs.com/package/indexr'><img src='https://img.shields.io/npm/dt/indexr.svg?maxAge=2592000' alt='Coverage Status' /></a>
-
-# Indexr
-Dynamic index module boilerplate creator for your Node or client packaged ES6 submodules. **Indexr** overcomes some of the limits of ES6 modules by autogenerating module index boilerplate code usually as part of a precompilation stage in your build process.
-
-<img src="docs/images/reducer-diagram.png?1" />
-
-## Background
+# Background
 
 Good application structure should be modular in terms of features. A common thing to do is to unify features with 'plumbing' code to load them together into arrays so they can be manipulated by a central process.
 
