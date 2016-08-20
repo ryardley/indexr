@@ -240,12 +240,12 @@ module.exports = [foo, bar, baz];
 By using the `--named-exports` flag it will export the submodules as named exports:
 
 ```bash
-$ indexr . --submodules '*/model.js' --named-exports
+$ indexr . --named-exports
 ```
 
 ```javascript
-import foo from './foo/model';
-import bar from './bar/model';
+import foo from './foo';
+import bar from './bar';
 export default {foo, bar};
 ```
 
