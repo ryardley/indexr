@@ -274,13 +274,15 @@ describe('indexr', () => {
     });
 
     it('should run the file watcher', () => {
-      sinon.stub(chokidar, 'watch', () => ({ on: () => {} }));
+      const onEventSpy = sinon.spy();
+      sinon.stub(chokidar, 'watch', () => ({ on: onEventSpy }));
 
       indexr(fractalFolder, 'thing.js', {
         watch: '**/foo/*',
       });
 
       assert(chokidar.watch.withArgs('**/foo/*', { ignored: ['**/modules/thing.js'] }).calledOnce, 'Chockidar was not called with the correct args.');
+      assert(onEventSpy.withArgs('all').calledOnce);
       chokidar.watch.restore();
     });
 
