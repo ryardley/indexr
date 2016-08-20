@@ -1,3 +1,33 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Indexr](#indexr)
+  - [Background](#background)
+- [Installation](#installation)
+  - [Tip](#tip)
+- [Usage](#usage)
+  - [CLI Usage](#cli-usage)
+    - [Examples](#examples)
+      - [NOTE: All commandline globs must be enclosed in quotes!!](#note-all-commandline-globs-must-be-enclosed-in-quotes)
+    - [Change the modules folder](#change-the-modules-folder)
+    - [Change the output filename](#change-the-output-filename)
+    - [Change what qualifies as a module.](#change-what-qualifies-as-a-module)
+    - [ES5 module output](#es5-module-output)
+    - [Use named Exports.](#use-named-exports)
+    - [Including the globbed files.](#including-the-globbed-files)
+  - [File Watching](#file-watching)
+  - [Node API](#node-api)
+    - [Signature](#signature)
+    - [Arguments](#arguments)
+    - [Available options](#available-options)
+    - [Example](#example)
+- [Contributing](#contributing)
+    - [Feedback?](#feedback)
+    - [Found a bug?](#found-a-bug)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 <a href="https://travis-ci.org/ryardley/indexr"><img src="https://travis-ci.org/ryardley/indexr.svg?branch=master" /></a>
 <a href="https://badge.fury.io/js/indexr"><img src="https://badge.fury.io/js/indexr.svg" /></a>
 <a href='https://codecov.io/gh/ryardley/indexr'><img src='https://img.shields.io/codecov/c/github/ryardley/indexr.svg?maxAge=2592000&cb=20160820.3' alt='Coverage Status' /></a>
