@@ -7,6 +7,7 @@ import indexr from '../lib';
 import moduleParseCLI from '../lib/modules/cli';
 import path from 'path';
 import sinon from 'sinon';
+import extendedHelp from '../lib/modules/cli/extendedHelp';
 import { Command } from 'commander';
 import { setLogLevel } from '../lib/utils/logger';
 import chokidar from 'chokidar';
@@ -399,14 +400,30 @@ describe('indexr', () => {
     });
 
     it('should show --help', () => {
-      const actual = runCLI('indexr', '--help');
-      const expected = {
-        inputFolder: '.',
-        options: {
-          exts: ['js', 'jsx'],
-        },
-      };
-      assert.deepEqual(expected, actual);
+      const flags = '-f, --some-flag';
+      const description = 'Some flag';
+      const long = 'Some long';
+      const coercion = undefined;
+      const defaults = undefined;
+      const allmessages = [];
+
+      sinon.stub(console, 'log', (msg) => allmessages.push(msg));
+
+      // const option = sinon.spy();
+      const option = () => {};
+      const on = (tag, func) => func();
+
+      extendedHelp({ option, on }, [{
+        flags,
+        description,
+        coercion,
+        defaults,
+        long,
+      }]);
+      console.log.restore();
+
+      assert.deepEqual(allmessages, ['\n  Some flag\n  ----------\n  -f, --some-flag\n\n  Some long\n\n']);
+
     });
 
 
