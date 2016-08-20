@@ -276,7 +276,7 @@ $ indexr . --watch
 
 ### Signature
 
-```typescript
+```ts
 indexr(rootFolder:String, options?:Object):Promise
 ```
 
