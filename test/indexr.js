@@ -274,7 +274,7 @@ describe('indexr', () => {
     });
 
     it('should run the file watcher', () => {
-      const onEventSpy = sinon.spy();
+      const onEventSpy = sinon.spy((tag, func) => func());
       sinon.stub(chokidar, 'watch', () => ({ on: onEventSpy }));
 
       indexr(fractalFolder, 'thing.js', {
