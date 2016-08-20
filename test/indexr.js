@@ -8,6 +8,7 @@ import moduleParseCLI from '../lib/modules/cli';
 import path from 'path';
 import sinon from 'sinon';
 import extendedHelp from '../lib/modules/cli/extendedHelp';
+import getFileList from '../lib/utils/getFileList';
 import { Command } from 'commander';
 import { setLogLevel } from '../lib/utils/logger';
 import chokidar from 'chokidar';
@@ -424,6 +425,19 @@ describe('indexr', () => {
 
       assert.deepEqual(allmessages, ['\n  Some flag\n  ----------\n  -f, --some-flag\n\n  Some long\n\n']);
 
+    });
+
+    describe('getFileList', () => {
+      it('should blow up if it is given a non string path', (endTest) => {
+        getFileList(/1234/, ['one'])
+          .then(() => {
+            endTest('No error was thrown but it should have.');
+          })
+          .catch((e) => {
+            assert(e);
+            endTest();
+          });
+      });
     });
 
 
