@@ -10,8 +10,8 @@ import sinon from 'sinon';
 import extendedHelp from '../lib/modules/cli/extendedHelp';
 import getFileList from '../lib/utils/getFileList';
 import { Command } from 'commander';
-import { setLogLevel } from '../lib/utils/logger';
 import chokidar from 'chokidar';
+import { resetLog, setLogLevel, logHistory } from '../lib/utils/logger';
 // TODO: Simplify some of these examples
 
 // don't log stuff we dont care
@@ -38,9 +38,12 @@ const fileExists = (fileName) =>
 let sandbox;
 beforeEach(() => {
   sandbox = sinon.sandbox.create();
+  setLogLevel('none');
+  resetLog();
 });
 
 afterEach(() => {
+  setLogLevel('all');
   sandbox.restore();
 });
 
@@ -114,11 +117,13 @@ describe('indexr', () => {
   describe('node API', () => {
 
     it('should return an es6 file with correct exports', (endTest) => {
-
+      setLogLevel('all');
       indexr(inputFolder, { modules: undefined }).then(() => {
+
         const expected = fs.readFileSync(path.resolve(outputFolder, 'expected-es6.js'), 'utf-8');
         const actual = fs.readFileSync(path.resolve(inputFolder, defaultOptions.outputFilename), 'utf-8');
         assert.equal(actual, expected, 'Function did not return expected output.');
+        assert(logHistory().length === 1);
         endTest();
       })
       .catch(endTest);
@@ -129,6 +134,7 @@ describe('indexr', () => {
         const actual = fs.readFileSync(path.resolve(inputFolder, defaultOptions.outputFilename), 'utf-8');
         const expected = fs.readFileSync(path.resolve(outputFolder, 'expected-es5.js'), 'utf-8');
         assert.equal(actual, expected, 'Function did not return expected output.');
+        assert(logHistory().length === 1);
         endTest();
       })
       .catch(endTest);
@@ -270,6 +276,7 @@ describe('indexr', () => {
         ];
 
         assert.deepEqual(expected, actual, 'Function did not return expected output.');
+        assert(logHistory().length === 5);
         endTest();
       })
       .catch(endTest);
