@@ -244,9 +244,9 @@ $ indexr . --named-exports
 ```
 
 ```javascript
-import foo from './foo';
-import bar from './bar';
-export default {foo, bar};
+export { default as bar } from './bar';
+export { default as baz } from './baz';
+export { default as foo } from './foo';
 ```
 
 ### Including the globbed files.
