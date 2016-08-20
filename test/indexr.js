@@ -11,7 +11,7 @@ import extendedHelp from '../lib/modules/cli/extendedHelp';
 import getFileList from '../lib/utils/getFileList';
 import { Command } from 'commander';
 import chokidar from 'chokidar';
-import { resetLog, setLogLevel, logHistory } from '../lib/utils/logger';
+import { resetLog, setLogLevel, logHistory, info } from '../lib/utils/logger';
 // TODO: Simplify some of these examples
 
 // don't log stuff we dont care
@@ -45,6 +45,18 @@ describe('indexr program', () => {
 
   afterEach(() => {
     sandbox.restore();
+  });
+
+  describe('logger', () => {
+    it('should actually log stuff and print to console', () => {
+      resetLog();
+      setLogLevel('info');
+      info('foo');
+      const actual = logHistory('info')[0];
+      const expected = { level: 'info', message: 'indexr >> foo' };
+      assert.deepEqual(expected, actual);
+      setLogLevel('none');
+    });
   });
 
   describe('handleDeprecation', () => {
