@@ -397,6 +397,19 @@ describe('indexr', () => {
       };
       assert.deepEqual(expected, actual);
     });
+
+    it('should show --help', () => {
+      const actual = runCLI('indexr', '--help');
+      const expected = {
+        inputFolder: '.',
+        options: {
+          exts: ['js', 'jsx'],
+        },
+      };
+      assert.deepEqual(expected, actual);
+    });
+
+
   });
 });
 
