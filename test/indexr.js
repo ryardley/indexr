@@ -134,7 +134,7 @@ describe('indexr', () => {
         const actual = fs.readFileSync(path.resolve(inputFolder, defaultOptions.outputFilename), 'utf-8');
         const expected = fs.readFileSync(path.resolve(outputFolder, 'expected-es5.js'), 'utf-8');
         assert.equal(actual, expected, 'Function did not return expected output.');
-        assert(logHistory().length === 1);
+        assert(logHistory('info').length === 1);
         endTest();
       })
       .catch(endTest);
