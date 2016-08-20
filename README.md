@@ -1,4 +1,4 @@
-<img src="https://travis-ci.org/ryardley/indexr.svg?branch=master" />
+<a href="https://travis-ci.org/ryardley/indexr"><img src="https://travis-ci.org/ryardley/indexr.svg?branch=master" /></a>
 <a href="https://badge.fury.io/js/indexr"><img src="https://badge.fury.io/js/indexr.svg" /></a>
 <a href='https://codecov.io/gh/ryardley/indexr'><img src='https://img.shields.io/codecov/c/github/ryardley/indexr.svg?maxAge=2592000&cb=20160820.1' alt='Coverage Status' /></a>
 <a href='https://www.npmjs.com/package/indexr'><img src='https://img.shields.io/npm/dt/indexr.svg?maxAge=2592000' alt='Coverage Status' /></a>
