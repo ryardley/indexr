@@ -54,7 +54,7 @@ app/modules
 You would then write plumbing code that re-exports your reducers like this:
 
 ```javascript
-/* app/modules/index.js */
+/* app/modules/reducers.js */
 import auth from './auth/reducer';
 import errors from './errors/reducer';
 import home from './home/reducer';
@@ -74,7 +74,7 @@ So you can then them load them to redux like this:
 ```javascript
 /* app/index.js */
 import { combineReducers } from 'redux'
-import reducers from './modules'
+import reducers from './modules/reducers'
 
 // Apply all reducers
 const reducer = combineReducers(reducers);
@@ -87,7 +87,7 @@ So that is all great but what if you forget to update your index all the time (l
 You can try something like this in your modules folder:
 
 ```javascript
-// ./routes/index.js
+// app/modules/reducers.js
 export default fs
   .readdirSync(moduleFolder)
   .filter((listing) => {
