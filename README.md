@@ -40,50 +40,39 @@ Dynamic index module boilerplate creator for your Node or client packaged ES6 su
 
 Good application structure should be modular in terms of features. A common thing to do is to unify features with 'plumbing' code to load them together into arrays so they can be manipulated by a central process.
 
-An example might be express routes. Say you have routes organised by feature like this:
+An example might be redux reducers. Say you have your reducers organised by feature like this:
 
 ```
 app/modules
- ├── auth
- ├── errors
- ├── home
- ├── product
- └── user
+ ├── auth/reducer.js
+ ├── errors/reducer.js
+ ├── home/reducer.js
+ ├── product/reducer.js
+ └── user/reducer.js
 ```
 
-As a good engineer you would then write plumbing code that looks like this:
+You would then write plumbing code that re-exports your reducers like this:
 
 ```javascript
 /* app/modules/index.js */
-import auth from './auth';
-import errors from './errors';
-import home from './home';
-import product from './product';
-import user from './user';
-
-export default [
-  auth,
-  errors,
-  home,
-  product,
-  user,
-];
+export { default as auth } from './auth/reducer';
+export { default as errors } from './errors/reducer';
+export { default as home } from './home/reducer';
+export { default as product } from './product/reducer';
+export { default as auth } from './user/reducer';
 ```
 
-So you can then them load them to express like this:
+So you can then them load them to redux like this:
 
 ```javascript
 /* app/index.js */
-import routes from './modules';
-import express from 'express';
+import { combineReducers } from 'redux'
+import * as reducers from './modules'
 
-const app = express();
+// Apply all reducers
+const reducer = combineReducers(reducers);
 
-// Apply all routes from within the routes folder
-routes.map((route) => {
-  app.use(route);
-});
-
+// Consume reducers etc.
 ```
 
 So that is all great but what if you forget to update your index all the time (like I do) and/or have dynamic modules that really should be autoloaded?
@@ -95,23 +84,31 @@ You can try something like this in your modules folder:
 export default fs
   .readdirSync(moduleFolder)
   .filter((listing) => {
+    const folder = path.resolve(moduleFolder, listing);
+    const reducer = path.resolve(folder, 'reducer.js');
     try {
-      return fs.statSync(p).isDirectory()
-        && fs.statSync(path.resolve(p, 'index.js')).isFile();
+      return fs.statSync(folder).isDirectory()
+        && fs.statSync(reducer).isFile();
     } catch (e) {
       return false;
     }
   })
-  .map((listing) => {
-    return require(path.resolve(moduleFolder, listing))
-  });
+  .reduce((memo, listing) => {
+    const reducer = path.resolve(folder, 'reducer.js');
+    return {
+      ...memo,
+      [listing]: require(reducer),
+    };
+  }, {});
 ```
 
 This works but there are problems with this.
+
 * ES6 imports are declarative and meant for static analysis.
 * The function `require` is actually from the commonjs API and is not part of the ES6 modules spec and will eventually be deprecated.
 * You probably don't want your app to be synchronously blocking
 * If you try to code this asynchronously the rest of your code will be in a callback which is annoying.
+* It's actually kind of convoluted
 
 Simply put ES6 modules [cannot be dynamic](http://stackoverflow.com/questions/30340005/importing-modules-using-es6-syntax-and-dynamic-path).
 
