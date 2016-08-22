@@ -55,18 +55,11 @@ You would then write plumbing code that re-exports your reducers like this:
 
 ```javascript
 /* app/modules/reducers.js */
-import auth from './auth/reducer';
-import errors from './errors/reducer';
-import home from './home/reducer';
-import product from './product/reducer';
-import user from './user/reducer';
-export default {
-  auth,
-  errors,
-  home,
-  product,
-  user,
-}
+export { default as auth } from './auth/reducer';
+export { default as errors } from './errors/reducer';
+export { default as home } from './home/reducer';
+export { default as product } from './product/reducer';
+export { default as user } from './user/reducer';
 ```
 
 So you can then consume them like this:
@@ -74,7 +67,7 @@ So you can then consume them like this:
 ```javascript
 /* app/index.js */
 import { combineReducers } from 'redux'
-import reducers from './modules/reducers'
+import * as reducers from './modules/reducers'
 
 // Apply all reducers
 const reducer = combineReducers(reducers);
@@ -82,7 +75,7 @@ const reducer = combineReducers(reducers);
 // Consume reducers etc.
 ```
 
-There is a simiar user story around express routes. 
+There is a simiar user story around express routes but potentially using an array. 
 
 ```
 app/modules
@@ -116,6 +109,8 @@ import routes from './modules/routes'
 
 // Use all routes
 routes.map(app.use.bind(app));
+
+// handle error pages and setup server
 ```
 
 So that is all great but what if you forget to update your index files all the time and/or have dynamic modules that really should be autoloaded? 
