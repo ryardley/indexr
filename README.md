@@ -147,9 +147,9 @@ This works but there are problems with this.
 
 * ES6 imports are declarative and meant for static analysis.
 * The function `require` is actually from the commonjs API and is not part of the ES6 modules spec and will eventually be deprecated.
-* You probably don't want your app to be synchronously blocking
-* If you try to code this asynchronously the rest of your code will be in a callback which is annoying.
-* It's actually kind of convoluted
+* You probably don't want your app to be synchronously blocking while require runs
+* If you try to code this asynchronously using `System` or the new `Loader` inteface the rest of your code will be in a callback which is annoying.
+* Lastly it takes a doubletake to know what is actually happening.
 
 Simply put ES6 modules [cannot be dynamic](http://stackoverflow.com/questions/30340005/importing-modules-using-es6-syntax-and-dynamic-path).
 
