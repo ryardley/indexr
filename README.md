@@ -55,11 +55,18 @@ You would then write plumbing code that re-exports your reducers like this:
 
 ```javascript
 /* app/modules/index.js */
-export { default as auth } from './auth/reducer';
-export { default as errors } from './errors/reducer';
-export { default as home } from './home/reducer';
-export { default as product } from './product/reducer';
-export { default as auth } from './user/reducer';
+import auth from './auth/reducer';
+import errors from './errors/reducer';
+import home from './home/reducer';
+import product from './product/reducer';
+import user from './user/reducer';
+export default {
+  auth,
+  errors,
+  home,
+  product,
+  user,
+}
 ```
 
 So you can then them load them to redux like this:
@@ -67,7 +74,7 @@ So you can then them load them to redux like this:
 ```javascript
 /* app/index.js */
 import { combineReducers } from 'redux'
-import * as reducers from './modules'
+import reducers from './modules'
 
 // Apply all reducers
 const reducer = combineReducers(reducers);
