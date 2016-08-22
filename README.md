@@ -118,9 +118,7 @@ import routes from './modules/routes'
 routes.map(app.use.bind(app));
 ```
 
-So that is all great but what if you forget to update your index files all the time (like I do) and/or have dynamic modules that really should be autoloaded?
-
-You can try something like this in your modules folder:
+So that is all great but what if you forget to update your index files all the time and/or have dynamic modules that really should be autoloaded? Frankly, I constantly find that when creating new modules in systems like this I struggle to remember to update plumbing code and then waste a larger amount of time than acceptible wondering why the new feature I am creating does not work. I have in the past seen developers do stuff like this to compensate:
 
 ```javascript
 // app/modules/reducers.js
