@@ -15,7 +15,6 @@ Dynamic index module boilerplate creator for your Node or client packaged ES6 su
 
 - [Background](#background)
 - [Installation](#installation)
-  - [Tip](#tip)
 - [Usage](#usage)
   - [CLI Usage](#cli-usage)
     - [Syntax Example](#syntax-example)
@@ -134,7 +133,7 @@ Install locally and use the node API or use indexr in npm scripts (recommended).
 npm install indexr --save
 ```
 
-## Tip
+**Tip**
 Try adding `./node_modules/.bin` to your path for your terminal. That way you can get access to local cli programs as you enter your npm projects.
 
 ```bash
