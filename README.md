@@ -118,7 +118,9 @@ import routes from './modules/routes'
 routes.map(app.use.bind(app));
 ```
 
-So that is all great but what if you forget to update your index files all the time and/or have dynamic modules that really should be autoloaded? Frankly, I constantly find that when creating new modules in systems like this I struggle to remember to update plumbing code and then waste a larger amount of time than acceptible wondering why the new feature I am creating does not work. I have in the past seen developers do stuff like this to compensate:
+So that is all great but what if you forget to update your index files all the time and/or have dynamic modules that really should be autoloaded? 
+
+Frankly, I constantly find that when creating new modules in systems like this I struggle to remember to update plumbing code and then waste a larger amount of time than acceptible wondering why the new feature I am creating does not work. I have in the past seen developers do stuff like this to compensate:
 
 ```javascript
 // app/modules/reducers.js
@@ -145,15 +147,15 @@ export default fs
 
 This works but there are problems with this.
 
-* ES6 imports are declarative and meant for static analysis.
 * The function `require` is actually from the commonjs API and is not part of the ES6 modules spec and will eventually be deprecated.
-* You probably don't want your app to be synchronously blocking while require runs
-* If you try to code this asynchronously using `System` or the new `Loader` inteface the rest of your code will be in a callback which is annoying.
-* Lastly it takes a doubletake to know what is actually happening.
+* The output here is non deterministic.
+* You have to use `require` as there is no way by design for ES6 imports to handle non-deterministic module loading.
+* You probably don't want your app to be synchronously blocking while `require` and all the `fs` methods run in a loop.
+* If you try to code this asynchronously using `fs` async methods, `System` or the new `Loader` inteface the rest of your code will be in a callback which is annoying.
 
-Simply put ES6 modules [cannot be dynamic](http://stackoverflow.com/questions/30340005/importing-modules-using-es6-syntax-and-dynamic-path).
+The main issue here is that ES6 modules [cannot be dynamic](http://stackoverflow.com/questions/30340005/importing-modules-using-es6-syntax-and-dynamic-path).
 
-That doesn't stop us needing to load things simply and dynamically, does it?
+However that doesn't stop us needing or wanting to load things dynamically, does it?
 
 **Indexr** is designed to solve this problem by automatically generating index root modules from submodules that live in your source path.
 
