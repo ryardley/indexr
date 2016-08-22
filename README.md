@@ -69,7 +69,7 @@ export default {
 }
 ```
 
-So you can then them load them to redux like this:
+So you can then consume them like this:
 
 ```javascript
 /* app/index.js */
@@ -82,7 +82,43 @@ const reducer = combineReducers(reducers);
 // Consume reducers etc.
 ```
 
-So that is all great but what if you forget to update your index all the time (like I do) and/or have dynamic modules that really should be autoloaded?
+There is a simiar user story around express routes. 
+
+```
+app/modules
+ ├── auth/routes.js
+ ├── errors/routes.js
+ ├── home/routes.js
+ ├── product/routes.js
+ └── user/routes.js
+```
+
+```javascript
+/* app/modules/routes.js */
+import auth from './auth/routes';
+import errors from './errors/routes';
+import home from './home/routes';
+import product from './product/routes';
+import user from './user/routes';
+export default [
+  auth,
+  errors,
+  home,
+  product,
+  user,
+];
+```
+
+```javascript
+/* app/index.js */
+import express from 'express'
+import routes from './modules/routes'
+
+// Use all routes
+routes.map(app.use.bind(app));
+```
+
+So that is all great but what if you forget to update your index files all the time (like I do) and/or have dynamic modules that really should be autoloaded?
 
 You can try something like this in your modules folder:
 
