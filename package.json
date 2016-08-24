@@ -76,7 +76,6 @@
     "gulp-watch": "^4.3.9",
     "mocha": "^3.0.0",
     "nyc": "^8.1.0",
-    "semantic-release-cli": "1.4.1",
     "sinon": "^1.17.5",
     "semantic-release": "^4.3.5"
   },
