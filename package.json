@@ -11,6 +11,7 @@
     "docs": "doctoc README.md --title '##Contents'",
     "pretest-watch": "gulp compile",
     "report-coverage": "npm run build && nyc --require babel-core/register npm run test-once && nyc report --reporter=lcov > coverage.lcov && codecov",
+    "release": "git checkout master && git pull && git checkout release && git pull && git merge master && git push && git checkout master",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "test": "npm run build && npm run test-once",
     "test-and-compile": "npm run build && npm test",
