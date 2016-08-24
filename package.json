@@ -95,5 +95,8 @@
     "lodash.omit": "^4.5.0",
     "lodash.throttle": "^4.1.1",
     "lodash.uniq": "^4.5.0"
+  },
+  "release": {
+    "branch": "release"
   }
 }
