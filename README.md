@@ -158,15 +158,10 @@ However that doesn't stop us needing or wanting to load things dynamically, does
 
 # Installation
 
-Install globally and use indexr in the bash prompt.
-
-```bash
-npm install indexr -g
-```
-
 Install locally and use the node API or use indexr in npm scripts (recommended).
 
 ```bash
+# better
 npm install indexr --save
 ```
 
@@ -178,6 +173,13 @@ Try adding `./node_modules/.bin` to your path for your terminal. That way you ca
 ...
 PATH=$PATH:./node_modules/.bin
 ...
+```
+
+Alternatively if you have to you can install globally and use indexr in the bash prompt.
+
+```bash
+# You probably don't want to do this
+npm install indexr -g
 ```
 
 # Usage
