@@ -75,7 +75,7 @@ const reducer = combineReducers(reducers);
 // Consume reducers etc.
 ```
 
-There is a simiar user story around express routes but potentially using an array. 
+There is a simiar user story around express routes but potentially using an array.
 
 ```
 app/modules
@@ -108,12 +108,14 @@ import express from 'express'
 import routes from './modules/routes'
 
 // Use all routes
-routes.map(app.use.bind(app));
+routes.forEach((route) => {
+  app.use(route);
+});
 
 // handle error pages and setup server
 ```
 
-So that is all great but what if you forget to update your index files all the time and/or have dynamic modules that really should be autoloaded? 
+So that is all great but what if you forget to update your index files all the time and/or have dynamic modules that really should be autoloaded?
 
 Frankly, I constantly find that when creating new modules in systems like this I struggle to remember to update plumbing code and then waste a larger amount of time than acceptible wondering why the new feature I am creating does not work. I have in the past seen developers do stuff like this to compensate:
 
