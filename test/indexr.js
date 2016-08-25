@@ -4,38 +4,23 @@ import defaultOptions from '../lib/modules/args/defaultOptions';
 import fs from 'fs';
 import handleDeprecation from '../lib/modules/args/handleDeprecation';
 import indexr from '../lib';
-import moduleParseCLI from '../lib/modules/cli';
+
 import path from 'path';
 import sinon from 'sinon';
 import extendedHelp from '../lib/modules/cli/extendedHelp';
 import getFileList from '../lib/utils/getFileList';
-import { Command } from 'commander';
+
 import chokidar from 'chokidar';
 import { resetLog, setLogLevel, logHistory, info } from '../lib/utils/logger';
+import { paths, runCLI, fileExists } from './lib/utils';
+
+
 // TODO: Simplify some of these examples
 
 // don't log stuff we dont care
 setLogLevel('none');
 
-const inputFolder = path.resolve(__dirname, './fixtures/input');
-const fractalFolder = path.resolve(__dirname, './fixtures/fractal');
-const outputFolder = path.resolve(__dirname, './fixtures/output');
-
-const tryer = (func, defval = false) => {
-  try {
-    return func();
-  } catch (e) {
-    return defval;
-  }
-};
-
-const runCLI = (...cmd) =>
-  moduleParseCLI(['node', ...cmd], new Command());
-
-const fileExists = (fileName) =>
-  tryer(() => fs.lstatSync(fileName).isFile());
-
-setLogLevel('none');
+const { inputFolder, fractalFolder, outputFolder } = paths;
 
 describe('indexr program', () => {
   let sandbox;
@@ -105,17 +90,18 @@ describe('indexr program', () => {
     afterEach(() => {
       const deletePaths = [
         path.resolve(inputFolder, 'server.js'),
+        path.resolve(inputFolder, 'module-3/node_modules/modules/index.r.js'),
         path.resolve(inputFolder, defaultOptions.outputFilename),
         path.resolve(fractalFolder, 'modules', defaultOptions.outputFilename),
-        path.resolve(fractalFolder, 'modules', 'foo.js'),
-        path.resolve(fractalFolder, 'modules', 'thing.js'),
-        path.resolve(fractalFolder, 'modules', 'module-1', 'modules', 'foo.js'),
-        path.resolve(fractalFolder, 'modules', 'module-1', 'modules', 'thing.js'),
-        path.resolve(fractalFolder, 'modules', 'module-1', 'modules', 'nested-2', 'modules', 'foo.js'),
-        path.resolve(fractalFolder, 'modules', 'module-1', 'modules', 'nested-2', 'modules', 'thing.js'),
-        path.resolve(fractalFolder, 'modules', 'module-1', 'modules', 'nested-2', 'modules', 'foo.js'),
-        path.resolve(fractalFolder, 'modules', 'module-1', 'modules', 'nested-2', 'modules', 'thing.js'),
-        path.resolve(fractalFolder, 'modules', 'module-2', 'things', 'thing.js'),
+        path.resolve(fractalFolder, 'modules/foo.js'),
+        path.resolve(fractalFolder, 'modules/thing.js'),
+        path.resolve(fractalFolder, 'modules/module-1/modules/foo.js'),
+        path.resolve(fractalFolder, 'modules/module-1/modules/thing.js'),
+        path.resolve(fractalFolder, 'modules/module-1/modules/nested-2/modules/foo.js'),
+        path.resolve(fractalFolder, 'modules/module-1/modules/nested-2/modules/thing.js'),
+        path.resolve(fractalFolder, 'modules/module-1/modules/nested-2/modules/foo.js'),
+        path.resolve(fractalFolder, 'modules/module-1/modules/nested-2/modules/thing.js'),
+        path.resolve(fractalFolder, 'modules/module-2/things/thing.js'),
       ];
 
       deletePaths.forEach((filePath) => {
@@ -177,9 +163,20 @@ describe('indexr program', () => {
 
       it('should capture submodules filters', (endTest) => {
         indexr(inputFolder, { submodules: '*/server.js', modules: undefined }).then(() => {
-          const actual = fs.readFileSync(path.resolve(inputFolder, defaultOptions.outputFilename));
+          const actual = fs.readFileSync(path.resolve(inputFolder, defaultOptions.outputFilename), 'utf-8');
           const expected = fs.readFileSync(path.resolve(outputFolder,
             'expected-es6-server.js'), 'utf-8');
+          assert.equal(actual, expected, 'Function did not return expected output.');
+          endTest();
+        })
+        .catch(endTest);
+      });
+
+      it('should capture submodules ignore', (endTest) => {
+        indexr(inputFolder, { submodulesIgnore: 'module-1/', modules: undefined }).then(() => {
+          const actual = fs.readFileSync(path.resolve(inputFolder, defaultOptions.outputFilename), 'utf-8');
+          const expected = fs.readFileSync(path.resolve(outputFolder,
+            'expected-es6-submodules-ignore.js'), 'utf-8');
           assert.equal(actual, expected, 'Function did not return expected output.');
           endTest();
         })
@@ -256,9 +253,9 @@ describe('indexr program', () => {
           ];
 
           const actual = [
-            fs.readFileSync(path.resolve(fractalFolder, 'modules', 'foo.js'), 'utf-8'),
-            fs.readFileSync(path.resolve(fractalFolder, 'modules', 'module-1', 'modules', 'foo.js'), 'utf-8'),
-            fs.readFileSync(path.resolve(fractalFolder, 'modules', 'module-1', 'modules', 'nested-2', 'modules', 'foo.js'), 'utf-8'),
+            fs.readFileSync(path.resolve(fractalFolder, 'modules/foo.js'), 'utf-8'),
+            fs.readFileSync(path.resolve(fractalFolder, 'modules/module-1/modules/foo.js'), 'utf-8'),
+            fs.readFileSync(path.resolve(fractalFolder, 'modules/module-1/modules/nested-2/modules/foo.js'), 'utf-8'),
           ];
 
           assert.deepEqual(expected, actual, 'Function did not return expected output.');
@@ -342,6 +339,20 @@ describe('indexr program', () => {
       });
     });
 
+    describe('Ignore node_modules by default', () => {
+      it('should ignore node_modules', (endTest) => {
+        indexr(inputFolder)
+        .then(() => {
+          const actual = fileExists(path.resolve(inputFolder, 'module-3/node_modules/modules/index.r.js'));
+          const expected = false;
+          assert.equal(expected, actual);
+          endTest();
+        })
+        .catch(endTest);
+
+      });
+    });
+
     describe('CLI', () => {
       it('should support --out', () => {
         const actual = runCLI('indexr', '.', '--out', 'index.js');
@@ -409,12 +420,34 @@ describe('indexr program', () => {
         assert.deepEqual(expected, actual, 'Function did not return expected output.');
       });
 
+      it('should support --modules-ignore', () => {
+        const actual = runCLI('indexr', '.', '--modules-ignore', '**/fooo/');
+        const expected = {
+          inputFolder: '.',
+          options: {
+            modulesIgnore: ['**/fooo/'],
+          },
+        };
+        assert.deepEqual(expected, actual, 'Function did not return expected output.');
+      });
+
       it('should support --submodules', () => {
         const actual = runCLI('indexr', '.', '--submodules', '**/fooo/');
         const expected = {
           inputFolder: '.',
           options: {
             submodules: ['**/fooo/'],
+          },
+        };
+        assert.deepEqual(expected, actual, 'Function did not return expected output.');
+      });
+
+      it('should support --submodules-ignore', () => {
+        const actual = runCLI('indexr', '.', '--submodules-ignore', '**/fooo/');
+        const expected = {
+          inputFolder: '.',
+          options: {
+            submodulesIgnore: ['**/fooo/'],
           },
         };
         assert.deepEqual(expected, actual, 'Function did not return expected output.');
