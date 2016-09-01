@@ -14,23 +14,11 @@ import chokidar from 'chokidar';
 import { resetLog, setLogLevel, logHistory, info } from '../lib/utils/logger';
 import { paths, runCLI, fileExists } from './lib/utils';
 
-
-// TODO: Simplify some of these examples
-
-// don't log stuff we dont care
-setLogLevel('none');
-
 const { inputFolder, fractalFolder, outputFolder } = paths;
 
-describe('indexr program', () => {
-  let sandbox;
-  beforeEach(() => {
-    sandbox = sinon.sandbox.create();
-  });
+setLogLevel('none');
 
-  afterEach(() => {
-    sandbox.restore();
-  });
+describe('indexr program', () => {
 
   describe('logger', () => {
     it('should actually log stuff and print to console', () => {
