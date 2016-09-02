@@ -47,14 +47,6 @@ It is for this reason I created the [Indexr](http://github.com/ryardley/indexr) 
 
 What [Indexr](http://github.com/ryardley/indexr) does is it takes a folder, searches for any 'module' folders based on globs you provide and generates index files that export all the 'submodules' within the 'module' folders in whatever way you choose.
 
-# Installation
-
-```bash
-$ npm install -g indexr
-```
-
-# Usage
-
 Let's look at an example:
 
 ```bash
