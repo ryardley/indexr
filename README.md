@@ -7,8 +7,6 @@
 
 Dynamic index module boilerplate creator for your Node or client packaged ES6 submodules. **Indexr** overcomes some of the limits of ES6 modules by autogenerating module index boilerplate code usually as part of a precompilation stage in your build process.
 
-<img src="docs/images/reducer-diagram.png?1" />
-
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ##Contents
@@ -37,124 +35,51 @@ Dynamic index module boilerplate creator for your Node or client packaged ES6 su
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 # Background
+When creating great applications it is important to provide systems that allow features to be implemented and maintained as discrete units of code.
 
-Good application structure should be modular in terms of features. A common thing to do is to unify features with 'plumbing' code to load them together into arrays so they can be manipulated by a central process.
+It is also important to avoid magic runtime binding where functionality is implied by folder structure or some other magic variables or constants. 
 
-An example might be redux reducers. Say you have your reducers organised by feature like this:
+ES6 modules have come along and they are a great way to organise JavaScript code. They are declarative and statically analysable. Very importantly what you see is what you get.
 
+However they lack the ability to autoload modules on the fly based on a dynamic folder structure such as the kind you would see in a modular framework that needs to bind dynamic packages of code together.
+
+It is for this reason I created the [Indexr](http://github.com/ryardley/indexr) open source project.
+
+What [Indexr](http://github.com/ryardley/indexr) does is it takes a folder, searches for any 'module' folders based on globs you provide and generates index files that export all the 'submodules' within the 'module' folders in whatever way you choose.
+
+Let's look at an example:
+
+```bash
+$ indexr .  \
+  --out reducers.js \
+  --modules **/modules/ \
+  --submodules */reducer.js \
+  --direct-import
+  --named-exports
 ```
-app/modules
- ├── auth/reducer.js
- ├── errors/reducer.js
- ├── home/reducer.js
- ├── product/reducer.js
- └── user/reducer.js
-```
 
-You would then write plumbing code that re-exports your reducers like this:
+This example does the following: 
+
+1. Use the current folder as a root folder
+1. Find module folders nested within this root folder that have the name `modules`
+1. Within each `modules` folder find subfolder that contains an `reducer.js` file
+1. Create an ES6 `reducers.js` file within each 'modules' folder that directly imports the submodule's `reducer.js` file.
+1. Export the reducers as named exports.
+
+You can also do the same thing via Node API
 
 ```javascript
-/* app/modules/reducers.js */
-export { default as auth } from './auth/reducer';
-export { default as errors } from './errors/reducer';
-export { default as home } from './home/reducer';
-export { default as product } from './product/reducer';
-export { default as user } from './user/reducer';
-```
-
-So you can then consume them like this:
-
-```javascript
-/* app/index.js */
-import { combineReducers } from 'redux'
-import * as reducers from './modules/reducers'
-
-// Apply all reducers
-const reducer = combineReducers(reducers);
-
-// Consume reducers etc.
-```
-
-There is a simiar user story around express routes but potentially using an array.
-
-```
-app/modules
- ├── auth/routes.js
- ├── errors/routes.js
- ├── home/routes.js
- ├── product/routes.js
- └── user/routes.js
-```
-
-```javascript
-/* app/modules/routes.js */
-import auth from './auth/routes';
-import errors from './errors/routes';
-import home from './home/routes';
-import product from './product/routes';
-import user from './user/routes';
-export default [
-  auth,
-  errors,
-  home,
-  product,
-  user,
-];
-```
-
-```javascript
-/* app/index.js */
-import express from 'express'
-import routes from './modules/routes'
-
-// Use all routes
-routes.forEach((route) => {
-  app.use(route);
+import indexr from 'indexr';
+indexr(__dirname, {
+  outputFilename: 'reducers.js',
+  modules: '**/modules/',
+  submodules: '*/reducer.js',
+  directImport: true,
+  namedExports: true,
 });
-
-// handle error pages and setup server
 ```
 
-So that is all great but what if you forget to update your index files all the time and/or have dynamic modules that really should be autoloaded?
-
-Frankly, I constantly find that when creating new modules in systems like this I struggle to remember to update plumbing code and then waste a larger amount of time than acceptible wondering why the new feature I am creating does not work. I have in the past seen developers do stuff like this to compensate:
-
-```javascript
-// app/modules/reducers.js
-export default fs
-  .readdirSync(moduleFolder)
-  .filter((listing) => {
-    const folder = path.resolve(moduleFolder, listing);
-    const reducer = path.resolve(folder, 'reducer.js');
-    try {
-      return fs.statSync(folder).isDirectory()
-        && fs.statSync(reducer).isFile();
-    } catch (e) {
-      return false;
-    }
-  })
-  .reduce((memo, listing) => {
-    const reducer = path.resolve(folder, 'reducer.js');
-    return {
-      ...memo,
-      [listing]: require(reducer),
-    };
-  }, {});
-```
-
-This works but there are problems with this.
-
-* The function `require` is actually from the commonjs API and is not part of the ES6 modules spec and will eventually be deprecated.
-* The output here is non deterministic.
-* You have to use `require` as there is no way by design for ES6 imports to handle non-deterministic module loading.
-* You probably don't want your app to be synchronously blocking while `require` and all the `fs` methods run in a loop.
-* If you try to code this asynchronously using `fs` async methods, `System` or the new `Loader` inteface the rest of your code will be in a callback which is annoying.
-
-The main issue here is that ES6 modules [cannot be dynamic](http://stackoverflow.com/questions/30340005/importing-modules-using-es6-syntax-and-dynamic-path).
-
-However that doesn't stop us needing or wanting to load things dynamically, does it?
-
-**Indexr** is designed to solve this problem by automatically generating index root modules from submodules that live in your source path.
+http://github.com/ryardley/indexr
 
 # Installation
 
