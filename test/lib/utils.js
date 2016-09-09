@@ -23,3 +23,10 @@ export const paths = {
   outputFolder: path.resolve(__dirname, '..', './fixtures/output'),
 };
 
+export const deleteFiles = (...deletePaths) => {
+  deletePaths.forEach((filePath) => {
+    if (fileExists(filePath)) {
+      fs.unlinkSync(filePath);
+    }
+  });
+};

@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import { chain, map } from '../lib/utils/chainMap';
+import { chain, map } from '../../lib/utils/chainMap';
 
 describe('chain', () => {
 
