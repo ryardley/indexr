@@ -1,4 +1,5 @@
 /* eslint-disable max-len */
+
 import checkErrorPath from './modules/checkErrorPath';
 import cli from './modules/cli';
 import extendHelp from './modules/extendHelp';
